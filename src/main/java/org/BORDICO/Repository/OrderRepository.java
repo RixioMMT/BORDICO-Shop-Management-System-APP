@@ -1,4 +1,7 @@
 package org.BORDICO.Repository;
 
-public interface OrderRepository {
+import org.BORDICO.Model.Entity.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

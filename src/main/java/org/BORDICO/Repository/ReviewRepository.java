@@ -1,4 +1,7 @@
 package org.BORDICO.Repository;
 
-public interface ReviewRepository {
+import org.BORDICO.Model.Entity.Review;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ReviewRepository extends JpaRepository<Review, Long> {
 }
