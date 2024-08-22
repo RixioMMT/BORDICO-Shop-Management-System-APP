@@ -23,7 +23,7 @@ public class Pattern {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, length = 200)
+    @Column(name = "name", nullable = false, unique = true, length = 200)
     private String name;
     @Column(name = "description",length = 1000)
     private String description;

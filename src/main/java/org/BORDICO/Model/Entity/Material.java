@@ -2,7 +2,8 @@ package org.BORDICO.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.BORDICO.Model.Enum.Unit;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "materials")
@@ -16,11 +17,11 @@ public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity")
     private int quantity;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "unit", nullable = false, length = 50)
-    private Unit unit;
+    @Column(name = "yarn_grams")
+    private double yarnGrams;
+    private LocalDateTime updatedAt;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supply_id", nullable = false)
     private Supply supply;

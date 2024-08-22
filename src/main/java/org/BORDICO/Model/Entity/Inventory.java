@@ -4,34 +4,31 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "inventory")
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-@EntityListeners(AuditingEntityListener.class)
-public class Category {
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true, length = 200)
-    private String name;
-    @Column(name = "description", length = 1000)
-    private String description;
+    @Column(name = "quantity")
+    private int quantity;
+    @Column(name = "yarn_grams")
+    private double yarnGrams;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> products;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supply_id", nullable = false)
+    private Supply supply;
 }
