@@ -5,26 +5,31 @@ import lombok.*;
 import org.BORDICO.Model.Enum.Unit;
 
 @Entity
-@Table(name = "materials")
+@Table(name = "supplies")
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class Material {
+public class Supply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name", nullable = false, length = 200)
+    private String name;
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Enumerated(EnumType.STRING)
     @Column(name = "unit", nullable = false, length = 50)
     private Unit unit;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "supply_id", nullable = false)
-    private Supply supply;
+    @Column(name = "brand", length = 100)
+    private String brand;
+    @Column(name = "description", length = 500)
+    private String description;
+    @OneToOne(mappedBy = "supply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Material material;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pattern_id", nullable = false)
+    @JoinColumn(name = "pattern_id")
     private Pattern pattern;
 }

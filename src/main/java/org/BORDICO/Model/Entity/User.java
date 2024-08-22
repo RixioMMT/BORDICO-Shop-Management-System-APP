@@ -1,15 +1,11 @@
 package org.BORDICO.Model.Entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-public class User {
-
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +27,7 @@ public class User {
     private String email;
     @Column(name = "phone", nullable = false, length = 100)
     private String phone;
-    @Column(name = "password", nullable = false, length = 255)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
     @Column(name = "first_name", nullable = false, length = 200)
     private String firstName;
@@ -40,6 +35,7 @@ public class User {
     private String lastName;
     @Column(name = "date_of_birth", nullable = false)
     private LocalDateTime dateOfBirth;
+    @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
@@ -48,4 +44,32 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(role);
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
