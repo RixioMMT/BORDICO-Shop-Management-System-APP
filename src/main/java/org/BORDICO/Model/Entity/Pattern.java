@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "patterns")
@@ -38,5 +38,5 @@ public class Pattern {
     @OneToOne(mappedBy = "pattern", fetch = FetchType.LAZY)
     private Product product;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "pattern")
-    private List<Material> materials;
+    private Set<Material> materials;
 }

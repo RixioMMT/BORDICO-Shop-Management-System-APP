@@ -7,7 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -33,5 +33,5 @@ public class Category {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Product> products;
+    private Set<Product> products;
 }

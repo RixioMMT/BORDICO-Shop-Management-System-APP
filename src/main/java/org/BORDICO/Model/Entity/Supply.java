@@ -43,5 +43,4 @@ public class Supply {
     private Inventory inventory;
     @OneToOne(mappedBy = "supply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Material material;
-
 }

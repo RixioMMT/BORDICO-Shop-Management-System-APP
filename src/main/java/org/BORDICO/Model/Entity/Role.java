@@ -7,7 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -32,7 +32,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<User> users;
+    private Set<User> users;
     @Override
     public String getAuthority() {
         return position.name();
