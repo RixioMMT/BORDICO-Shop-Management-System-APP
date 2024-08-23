@@ -23,7 +23,7 @@ public class AppVersion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name = "name", nullable = false)
+    @Column(name = "os", nullable = false)
     private OS os;
     @CreatedDate
     @Column(name = "created_at", updatable = false)

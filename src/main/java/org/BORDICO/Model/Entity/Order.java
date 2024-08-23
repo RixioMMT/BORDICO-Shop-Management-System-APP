@@ -24,7 +24,6 @@ public class Order {
     private String shippingAddress;
     @Column(name = "price")
     private double price;
-    @Enumerated(EnumType.STRING)
     @Column(name = "order_date", nullable = false)
     private LocalDateTime oderDate;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,4 +36,7 @@ public class Order {
     private Shipping shipping;
     @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Payment payment;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "income_id", nullable = false)
+    private Income income;
 }
