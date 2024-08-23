@@ -1,7 +1,7 @@
 package org.BORDICO.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.BORDICO.Model.Enum.Position;
+import org.BORDICO.Model.Enum.RolePosition;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,7 +24,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     @Enumerated(EnumType.STRING)
     @Column(name = "name", nullable = false)
-    private Position position;
+    private RolePosition rolePosition;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -35,6 +35,6 @@ public class Role implements GrantedAuthority {
     private Set<User> users;
     @Override
     public String getAuthority() {
-        return position.name();
+        return rolePosition.name();
     }
 }

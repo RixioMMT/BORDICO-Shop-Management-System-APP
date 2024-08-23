@@ -57,4 +57,6 @@ public class Product {
     private Set<OrderItem> orderItems;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CartItem> cartItems;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Review> reviews;
 }

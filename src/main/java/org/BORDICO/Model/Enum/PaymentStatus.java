@@ -1,8 +1,9 @@
 package org.BORDICO.Model.Enum;
 
-public enum Status {
+public enum PaymentStatus {
     PENDING,
     COMPLETED,
     FAILED,
-    CANCELLED
+    REFUNDED,
+    CANCELED,
 }

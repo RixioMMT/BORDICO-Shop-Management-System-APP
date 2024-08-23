@@ -1,6 +1,6 @@
 package org.BORDICO.Model.Enum;
 
-public enum Position {
+public enum RolePosition {
     CLIENT,
     ADMIN,
     CEO
