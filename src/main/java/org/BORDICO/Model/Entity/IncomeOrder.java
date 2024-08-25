@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class IncomeOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,8 +29,6 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipping_id", nullable = false)
     private Shipping shipping;

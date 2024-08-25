@@ -40,7 +40,7 @@ public class Supply {
     private LocalDateTime updatedAt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inventory_id", nullable = false)
-    private Inventory inventory;
+    private SupplyInventory supplyInventory;
     @OneToOne(mappedBy = "supply", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Material material;
     @ManyToOne(fetch = FetchType.LAZY)

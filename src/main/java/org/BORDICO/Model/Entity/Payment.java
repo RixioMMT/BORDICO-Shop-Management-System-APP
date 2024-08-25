@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.BORDICO.Model.Enum.PaymentMethod;
 import org.BORDICO.Model.Enum.PaymentStatus;
-import org.BORDICO.Model.Enum.RolePosition;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
@@ -32,5 +31,5 @@ public class Payment {
     private PaymentStatus paymentStatus;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
-    private Order order;
+    private IncomeOrder incomeOrder;
 }

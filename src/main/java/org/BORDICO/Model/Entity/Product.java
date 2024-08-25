@@ -25,10 +25,10 @@ public class Product {
     private Long id;
     @Column(name = "name", nullable = false, unique = true, length = 200)
     private String name;
+    @Column(name = "sku_code", nullable = false, unique = true, length = 200)
+    private String skuCode;
     @Column(name = "description", nullable = false, length = 1000)
     private String description;
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
     @Column(name = "width", nullable = false)
     private double width;
     @Column(name = "height", nullable = false)
@@ -51,10 +51,11 @@ public class Product {
     )
     private Set<Category> categories;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_inventory_id", referencedColumnName = "id")
+    private ProductInventory productInventory;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pattern_id", referencedColumnName = "id")
     private Pattern pattern;
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CartItem> cartItems;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

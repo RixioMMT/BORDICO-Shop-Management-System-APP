@@ -43,5 +43,5 @@ public class Income {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @OneToOne(mappedBy = "income", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Order Order;
+    private IncomeOrder IncomeOrder;
 }

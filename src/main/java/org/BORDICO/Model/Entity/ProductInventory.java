@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cartItems")
+@Table(name = "product_inventory")
 @Setter
 @Getter
 @Builder
@@ -18,22 +18,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-public class CartItem {
+public class ProductInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "product_name", nullable = false, unique = true, length = 100)
+    private String productName;
+    @Column(name = "sku_code", nullable = false, unique = true, length = 100)
+    private String skuCode;
     @Column(name = "quantity", nullable = false)
     private int quantity;
+    @Column(name = "product_price", nullable = false)
+    private BigDecimal productPrice;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @OneToOne(mappedBy = "productInventory", fetch = FetchType.LAZY)
     private Product product;
 }

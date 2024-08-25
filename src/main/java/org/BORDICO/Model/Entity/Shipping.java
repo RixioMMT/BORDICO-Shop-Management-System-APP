@@ -30,5 +30,5 @@ public class Shipping {
     @Column(name = "shipping_date", nullable = false)
     private LocalDateTime shippingDate;
     @OneToOne(mappedBy = "shipping", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Order order;
+    private IncomeOrder incomeOrder;
 }
