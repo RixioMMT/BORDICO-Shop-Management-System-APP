@@ -43,6 +43,6 @@ public class ProductInventory {
     @JoinColumn(name = "product_inventory_id", nullable = false)
     private ProductInventory productInventory;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "stock_id", nullable = false)
+    @JoinColumn(name = "product_stock_id", nullable = false)
     private ProductStock productStock;
 }

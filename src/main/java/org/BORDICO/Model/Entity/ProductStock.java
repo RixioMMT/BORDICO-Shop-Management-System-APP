@@ -37,6 +37,6 @@ public class ProductStock {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "productStock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ProductInventory> productsInventory;
 }
