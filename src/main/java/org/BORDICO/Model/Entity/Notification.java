@@ -19,10 +19,10 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name",length = 100)
-    private String name;
-    @Column(name = "description",length = 1000)
-    private String description;
+    @Column(name = "notification_name",length = 100)
+    private String notificationName;
+    @Column(name = "notification_description",length = 1000)
+    private String notificationDescription;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

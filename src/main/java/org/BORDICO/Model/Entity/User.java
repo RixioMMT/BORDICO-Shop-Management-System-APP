@@ -27,11 +27,11 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "phone", nullable = false, length = 100)
     private String phone;
-    @Column(name = "password", nullable = false, length = 200)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
-    @Column(name = "first_name", nullable = false, length = 200)
+    @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 200)
+    @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
     @Column(name = "date_of_birth", nullable = false)
     private LocalDateTime dateOfBirth;
@@ -46,11 +46,10 @@ public class User implements UserDetails {
     private Role role;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Notification> notifications;
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<IncomeOrder> incomeOrders;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Review> reviews;
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

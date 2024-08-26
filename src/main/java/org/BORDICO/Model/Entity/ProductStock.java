@@ -1,16 +1,17 @@
 package org.BORDICO.Model.Entity;
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.BORDICO.Model.Enum.RolePosition;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "stock")
 @Setter
 @Getter
 @Builder
@@ -18,23 +19,24 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
-public class Role implements GrantedAuthority {
+public class ProductStock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role_position", nullable = false)
-    private RolePosition rolePosition;
+    @Column(name = "product_name", nullable = false, length = 100)
+    private String productName;
+    @Column(name = "product_sku_code", nullable = false, unique = true, length = 100)
+    private String productSkuCode;
+    @Column(name = "product_price", nullable = false)
+    private BigDecimal stockPrice;
+    @Column(name = "product_quantity")
+    private int productQuantity;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> users;
-    @Override
-    public String getAuthority() {
-        return rolePosition.name();
-    }
+    @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<ProductInventory> productsInventory;
 }

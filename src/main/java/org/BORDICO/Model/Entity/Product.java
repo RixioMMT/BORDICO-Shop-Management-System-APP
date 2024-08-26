@@ -23,20 +23,22 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true, length = 200)
-    private String name;
-    @Column(name = "sku_code", nullable = false, unique = true, length = 200)
-    private String skuCode;
-    @Column(name = "description", nullable = false, length = 1000)
-    private String description;
-    @Column(name = "width", nullable = false)
-    private double width;
-    @Column(name = "height", nullable = false)
-    private double height;
-    @Column(name = "length", nullable = false)
-    private double length;
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    @Column(name = "product_name", nullable = false, unique = true, length = 200)
+    private String productName;
+    @Column(name = "product_sku_code", nullable = false, unique = true, length = 200)
+    private String productSkuCode;
+    @Column(name = "product_description", nullable = false, length = 1000)
+    private String productDescription;
+    @Column(name = "product_price", nullable = false)
+    private BigDecimal productPrice;
+    @Column(name = "product_width", nullable = false)
+    private double productWidth;
+    @Column(name = "product_height", nullable = false)
+    private double productHeight;
+    @Column(name = "product_length", nullable = false)
+    private double productLength;
+    @Column(name = "product_weight", nullable = false)
+    private double productWeight;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -50,14 +52,8 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_inventory_id", referencedColumnName = "id")
-    private ProductInventory productInventory;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pattern_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Pattern pattern;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CartItem> cartItems;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Review> reviews;
 }

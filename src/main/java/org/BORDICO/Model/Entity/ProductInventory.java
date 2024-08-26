@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "product_inventory")
@@ -22,12 +23,12 @@ public class ProductInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "product_name", nullable = false, unique = true, length = 100)
+    @Column(name = "product_name", nullable = false, length = 100)
     private String productName;
-    @Column(name = "sku_code", nullable = false, unique = true, length = 100)
-    private String skuCode;
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
+    @Column(name = "product_sku_code", nullable = false, length = 100)
+    private String productSkuCode;
+    @Column(name = "product_reference", nullable = false, length = 100)
+    private String productReference;
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
     @CreatedDate
@@ -36,6 +37,12 @@ public class ProductInventory {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @OneToOne(mappedBy = "productInventory", fetch = FetchType.LAZY)
-    private Product product;
+    @OneToMany(mappedBy = "productInventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<SupplyInventory> supplies;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_inventory_id", nullable = false)
+    private ProductInventory productInventory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stock_id", nullable = false)
+    private ProductStock productStock;
 }

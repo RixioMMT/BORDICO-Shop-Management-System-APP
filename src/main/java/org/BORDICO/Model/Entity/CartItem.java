@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "cartItems")
@@ -22,8 +23,14 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
+    @Column(name = "product_name", nullable = false, length = 100)
+    private String productName;
+    @Column(name = "sku_code", nullable = false, length = 100)
+    private String productSkuCode;
+    @Column(name = "cart_item_price", nullable = false)
+    private BigDecimal cartItemPrice;
+    @Column(name = "product_quantity", nullable = false)
+    private int productQuantity;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -33,7 +40,4 @@ public class CartItem {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id", nullable = false)
     private Cart cart;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 }

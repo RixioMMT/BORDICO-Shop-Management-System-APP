@@ -23,20 +23,20 @@ public class Outcome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name",length = 100)
-    private String name;
-    @Column(name = "description",length = 1000)
-    private String description;
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
-    @Column(name = "is_supply", nullable = false)
-    private boolean isSupply;
+    @Column(name = "order_reference", nullable = false, unique = true, length = 100)
+    private String orderReference;
+    @Column(name = "order_number", length = 100)
+    private String orderNumber;
+    @Column(name = "order_place", nullable = false, length = 100)
+    private String orderPlace;
+    @Column(name = "outcome_price", nullable = false)
+    private BigDecimal orderPrice;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @OneToMany(mappedBy = "outcome", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Supply> supplies;
+    @OneToOne(mappedBy = "outcome", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private OutcomeOrder outcomeOrder;
 }

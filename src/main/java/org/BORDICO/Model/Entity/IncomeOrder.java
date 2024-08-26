@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "income_orders")
 @Setter
 @Getter
 @Builder
@@ -20,21 +20,20 @@ public class IncomeOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "shipping_address", nullable = false, unique = true, length = 100)
+    @Column(name = "order_reference", nullable = false, unique = true, length = 1000)
+    private String orderReference;
+    @Column(name = "shipping_address", nullable = false, length = 1000)
     private String shippingAddress;
-    @Column(name = "price")
-    private double price;
+    @Column(name = "order_price", nullable = false)
+    private double orderPrice;
     @Column(name = "order_date", nullable = false)
     private LocalDateTime oderDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "shipping_id", nullable = false)
-    private Shipping shipping;
-    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "incomeOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Payment payment;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "income_id", nullable = false)
     private Income income;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shipping_id", nullable = false)
+    private Shipping shipping;
 }
