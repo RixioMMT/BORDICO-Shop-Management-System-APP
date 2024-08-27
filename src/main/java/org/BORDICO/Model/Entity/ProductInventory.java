@@ -40,9 +40,6 @@ public class ProductInventory {
     @OneToMany(mappedBy = "productInventory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<SupplyInventory> supplies;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_inventory_id", nullable = false)
-    private ProductInventory productInventory;
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_stock_id", nullable = false)
     private ProductStock productStock;
 }

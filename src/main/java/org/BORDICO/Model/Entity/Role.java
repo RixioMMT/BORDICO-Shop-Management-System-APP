@@ -31,7 +31,7 @@ public class Role implements GrantedAuthority {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users;
     @Override
     public String getAuthority() {

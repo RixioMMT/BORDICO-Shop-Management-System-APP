@@ -1,0 +1,28 @@
+schema {
+    mutation: Mutation
+}
+
+type Mutation {
+    addUser(userInput: UserInput!): User
+}
+
+type User {
+    id: String!
+    email: String!
+    phone: String
+    password: String!
+    firstName: String
+    lastName: String
+    dateOfBirth: String
+    role: String
+}
+
+input UserInput {
+    email: String!
+    phone: String
+    password: String!
+    firstName: String
+    lastName: String
+    dateOfBirth: String
+    role: String
+}
