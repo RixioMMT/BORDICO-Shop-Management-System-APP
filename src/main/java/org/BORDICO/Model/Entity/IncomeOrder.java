@@ -20,9 +20,9 @@ public class IncomeOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "order_reference", nullable = false, unique = true, length = 1000)
+    @Column(name = "order_reference", nullable = false, unique = true, length = 100)
     private String orderReference;
-    @Column(name = "shipping_address", nullable = false, length = 1000)
+    @Column(name = "shipping_address", nullable = false, length = 200)
     private String shippingAddress;
     @Column(name = "order_price", nullable = false)
     private double orderPrice;

@@ -21,7 +21,7 @@ public class Notification {
     private Long id;
     @Column(name = "notification_name",length = 100)
     private String notificationName;
-    @Column(name = "notification_description",length = 1000)
+    @Column(name = "notification_description",length = 200)
     private String notificationDescription;
     @CreatedDate
     @Column(name = "created_at", updatable = false)

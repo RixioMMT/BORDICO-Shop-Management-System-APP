@@ -23,9 +23,9 @@ public class FAQ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "question",length = 1000)
+    @Column(name = "question",length = 200)
     private String question;
-    @Column(name = "answer",length = 1000)
+    @Column(name = "answer",length = 200)
     private String answer;
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)

@@ -22,9 +22,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true, length = 200)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
-    @Column(name = "description", length = 1000)
+    @Column(name = "description", length = 200)
     private String description;
     @CreatedDate
     @Column(name = "created_at", updatable = false)

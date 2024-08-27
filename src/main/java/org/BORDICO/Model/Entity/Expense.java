@@ -22,7 +22,7 @@ public class Expense {
     private Long id;
     @Column(name = "expense_name", nullable = false, unique = true, length = 100)
     private String expenseName;
-    @Column(name = "expense_description", nullable = false, length = 1000)
+    @Column(name = "expense_description", nullable = false, length = 200)
     private String expenseDescription;
     @Column(name = "expense_price", nullable = false)
     private BigDecimal expensePrice;

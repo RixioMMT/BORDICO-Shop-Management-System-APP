@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "cartItems")
+@Table(name = "cart_items")
 @Setter
 @Getter
 @Builder

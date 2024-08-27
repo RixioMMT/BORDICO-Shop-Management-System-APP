@@ -27,7 +27,7 @@ public class Product {
     private String productName;
     @Column(name = "product_sku_code", nullable = false, unique = true, length = 200)
     private String productSkuCode;
-    @Column(name = "product_description", nullable = false, length = 1000)
+    @Column(name = "product_description", nullable = false, length = 200)
     private String productDescription;
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;

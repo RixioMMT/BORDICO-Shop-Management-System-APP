@@ -25,7 +25,7 @@ public class Pattern {
     private Long id;
     @Column(name = "pattern_name", nullable = false, unique = true, length = 100)
     private String name;
-    @Column(name = "pattern_description", nullable = false, length = 1000)
+    @Column(name = "pattern_description", nullable = false, length = 200)
     private String description;
     @Column(name = "materials_quantity", nullable = false)
     private int materialsQuantity;
