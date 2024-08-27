@@ -1,5 +1,10 @@
 schema {
+    query: Query
     mutation: Mutation
+}
+
+type Query {
+    addUser(userInput: UserInput!): User
 }
 
 type Mutation {
@@ -14,7 +19,6 @@ type User {
     firstName: String
     lastName: String
     dateOfBirth: String
-    role: String
 }
 
 input UserInput {
@@ -24,5 +28,4 @@ input UserInput {
     firstName: String
     lastName: String
     dateOfBirth: String
-    role: String
 }
