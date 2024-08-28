@@ -1,7 +1,7 @@
 package org.BORDICO.Configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.BORDICO.Service.JwtService;
+import org.BORDICO.Service.JWTService;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,9 +21,9 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class JWTAuthentication extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
-    private final JwtService jwtService;
+    private final JWTService jwtService;
     private final UserDetailsService userDetailsService;
 
     @Override

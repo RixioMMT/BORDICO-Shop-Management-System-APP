@@ -1,4 +1,6 @@
 package org.BORDICO.Model.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +19,6 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails {
     @Id
@@ -48,11 +49,10 @@ public class User implements UserDetails {
     private Set<Role> roles;
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Notification> notifications;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Review> reviews;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Cart> carts;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

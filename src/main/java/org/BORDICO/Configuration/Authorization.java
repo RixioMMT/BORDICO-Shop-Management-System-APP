@@ -14,7 +14,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfiguration {
+public class Authorization {
     private final UserRepository userRepository;
     @Bean
     UserDetailsService userDetailsService() {
