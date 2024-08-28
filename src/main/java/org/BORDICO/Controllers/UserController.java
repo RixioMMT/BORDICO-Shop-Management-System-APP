@@ -1,4 +1,4 @@
-package org.BORDICO.Model.Controller;
+package org.BORDICO.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Model.Entity.User;

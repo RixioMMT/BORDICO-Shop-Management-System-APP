@@ -33,8 +33,6 @@ public class User implements UserDetails {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
-    @Column(name = "date_of_birth", nullable = false)
-    private LocalDateTime dateOfBirth;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

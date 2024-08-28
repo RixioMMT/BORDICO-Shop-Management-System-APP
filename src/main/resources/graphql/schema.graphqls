@@ -9,23 +9,38 @@ type Query {
 
 type Mutation {
     addUser(userInput: UserInput!): User
+    addRole(roleInput: RoleInput!): Role
 }
 
 type User {
-    id: String!
+    id: ID!
     email: String!
-    phone: String
-    password: String!
-    firstName: String
-    lastName: String
-    dateOfBirth: String
+    phone: String!
+    firstName: String!
+    lastName: String!
+    roles: [Role!]!
+}
+
+type Role {
+    id: ID!
+    rolePosition: RolePosition!
+}
+
+enum RolePosition {
+    CLIENT
+    ADMIN
+    CEO
 }
 
 input UserInput {
     email: String!
-    phone: String
+    phone: String!
     password: String!
-    firstName: String
-    lastName: String
-    dateOfBirth: String
+    firstName: String!
+    lastName: String!
+    rolePositions: [RolePosition!]!
+}
+
+input RoleInput {
+    rolePosition: RolePosition!
 }

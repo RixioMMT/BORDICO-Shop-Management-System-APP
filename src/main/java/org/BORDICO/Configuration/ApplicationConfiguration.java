@@ -27,8 +27,7 @@ public class ApplicationConfiguration {
     @Bean
     UserDetailsService userDetailsService() {
         return email -> {
-            User user = userRepository.findByEmailWithRoles(email)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            User user = userRepository.findByEmailWithRoles(email);
             return new UserDetails() {
                 @Override
                 public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,7 +1,7 @@
 package org.BORDICO.Model.Inputs;
 
 import lombok.*;
-import org.BORDICO.Model.Entity.Role;
+import org.BORDICO.Model.Enum.RolePosition;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -17,6 +17,5 @@ public class UserInput {
     private String password;
     private String firstName;
     private String lastName;
-    private LocalDateTime dateOfBirth;
-    private Set<Role> roles;
+    private Set<RolePosition> rolePositions;
 }
