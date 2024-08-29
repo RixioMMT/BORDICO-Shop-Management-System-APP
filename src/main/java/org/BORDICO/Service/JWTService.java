@@ -40,7 +40,7 @@ public class JWTService {
 
     public String generateToken(User user) {
         UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
-                .username(user.getPhone())
+                .username(user.getEmail())
                 .password(user.getPassword())
                 .roles(user.getRoles().stream().map(role -> role.getRolePosition().name()).toArray(String[]::new))
                 .build();

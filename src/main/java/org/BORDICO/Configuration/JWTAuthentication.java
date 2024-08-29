@@ -33,32 +33,38 @@ public class JWTAuthentication extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-
+        System.out.println("Authorization Header: " + authHeader); // Add this line for debugging
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
         try {
             final String jwt = authHeader.substring(7);
+            System.out.println("Extracted JWT: " + jwt); // Add this line for debugging
             final String userEmail = jwtService.extractUsername(jwt);
+            System.out.println("Extracted Username: " + userEmail); // Add this line for debugging
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (userEmail != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-
+                System.out.println("User Details: " + userDetails);
                 if (jwtService.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
                             userDetails.getAuthorities()
                     );
+                    System.out.println("Authentication set for user: " + userEmail);
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
-                }
+                } else {
+                System.out.println("Invalid token.");
+            }
             }
             filterChain.doFilter(request, response);
         } catch (Exception exception) {
+            System.out.println("Exception occurred: " + exception.getMessage());
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }
     }

@@ -14,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
@@ -30,6 +31,10 @@ public class Authorization {
             return new UserDetails() {
                 @Override
                 public Collection<? extends GrantedAuthority> getAuthorities() {
+                    System.out.println("Fetching user with email: " + email);
+                    if (user == null) {
+                        throw new UsernameNotFoundException("User not found with email: " + email);
+                    }
                     return user.getRoles().stream()
                             .map(role -> new SimpleGrantedAuthority(role.getRolePosition().name()))
                             .collect(Collectors.toList());
