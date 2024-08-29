@@ -8,6 +8,8 @@ type Query {
 }
 
 type Mutation {
+    logIn(logInInput: LogInInput!): String
+    signUp(userInput: UserInput!): String
     addUser(userInput: UserInput!): User
     addRole(roleInput: RoleInput!): Role
 }
@@ -30,6 +32,11 @@ enum RolePosition {
     CLIENT
     ADMIN
     CEO
+}
+
+input LogInInput {
+    email: String!
+    password: String!
 }
 
 input UserInput {

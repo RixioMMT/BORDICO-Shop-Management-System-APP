@@ -22,7 +22,7 @@ public class AuthenticationResolver {
         User user = authenticationService.signUp(userInput);
         LogInInput logInInput = new LogInInput();
         logInInput.setEmail(user.getEmail());
-        logInInput.setPassword(user.getPassword());
+        logInInput.setPassword(userInput.getPassword());
         User authenticatedUser = authenticationService.logIn(logInInput);
         return jwtService.generateToken(authenticatedUser);
     }

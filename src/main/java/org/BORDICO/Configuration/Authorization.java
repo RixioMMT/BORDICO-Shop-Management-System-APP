@@ -42,7 +42,7 @@ public class Authorization {
 
                 @Override
                 public String getUsername() {
-                    return user.getPhone();
+                    return user.getEmail();
                 }
 
                 @Override
