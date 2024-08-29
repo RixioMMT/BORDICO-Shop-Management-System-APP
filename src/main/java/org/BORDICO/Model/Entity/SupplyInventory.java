@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class SupplyInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

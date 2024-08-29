@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
 public class AppVersion {
     @Id

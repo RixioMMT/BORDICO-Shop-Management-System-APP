@@ -17,7 +17,6 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @EntityListeners(AuditingEntityListener.class)
 public class Product {
     @Id

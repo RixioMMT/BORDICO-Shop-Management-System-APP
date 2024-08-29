@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,6 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class OutcomeOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
