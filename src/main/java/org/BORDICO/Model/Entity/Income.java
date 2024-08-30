@@ -23,14 +23,18 @@ public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "product_sku_code", length = 100)
+    private String productSkuCode;
+    @Column(name = "product_reference", nullable = false, length = 100)
+    private String productReference;
     @Column(name = "income_name",length = 100)
     private String incomeName;
+    @Column(name = "product_color")
+    private int productColor;
     @Column(name = "income_description",length = 200)
     private String incomeDescription;
     @Column(name = "income_price", nullable = false)
     private BigDecimal incomePrice;
-    @Column(name = "order_reference", nullable = false, unique = true, length = 100)
-    private String orderReference;
     @Enumerated(EnumType.STRING)
     @Column(name = "income_platform", nullable = false)
     private IncomePlatform incomePlatform;

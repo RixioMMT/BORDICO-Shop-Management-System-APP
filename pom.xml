@@ -74,23 +74,16 @@
             <version>0.11.5</version>
         </dependency>
         <!-- End of JWTAuth -->
-        <!-- GrahpQL -->
+        <!-- AWS -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-graphql</artifactId>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.20.56</version>
         </dependency>
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-java-servlet</artifactId>
-            <version>11.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.graphql-java-kickstart</groupId>
-            <artifactId>graphql-java-tools</artifactId>
-            <version>11.1.0</version>
-        </dependency>
-        <!-- End of GraphQL -->
+        <!-- End of AWS -->
     </dependencies>
+
+
 
     <build>
         <plugins>

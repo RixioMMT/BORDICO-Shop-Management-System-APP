@@ -1,6 +1,4 @@
 package org.BORDICO.Model.Entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -34,6 +32,8 @@ public class User implements UserDetails {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

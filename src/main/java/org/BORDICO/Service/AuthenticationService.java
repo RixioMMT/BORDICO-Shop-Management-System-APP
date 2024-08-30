@@ -1,8 +1,8 @@
 package org.BORDICO.Service;
 
-import graphql.GraphQLException;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.Entity.Cart;
 import org.BORDICO.Model.Entity.Role;
 import org.BORDICO.Model.Entity.User;
@@ -38,22 +38,22 @@ public class AuthenticationService {
         );
         return userRepository.findByEmail(logInInput.getEmail());
     }
-    public User signUp(UserInput userInput) throws GraphQLException {
+    public User signUp(UserInput userInput) throws CustomException {
         if (userInput.getEmail().isBlank() || userInput.getPhone().isBlank() || userInput.getPassword().isBlank()) {
-            throw new GraphQLException("Empty values are not allowed");
+            throw new CustomException("Empty values are not allowed");
         }
         String phoneInput = userInput.getPhone().replaceAll("\\D", "");
         if (phoneInput.isBlank()) {
-            throw new GraphQLException("Phone number must contain at least one digit");
+            throw new CustomException("Phone number must contain at least one digit");
         }
         if (userRepository.findByEmail(userInput.getEmail()) != null) {
-            throw new GraphQLException("Email is already used: " + userInput.getEmail());
+            throw new CustomException("Email is already used: " + userInput.getEmail());
         }
         Set<Role> roles = new HashSet<>();
         for (RolePosition rolePosition : userInput.getRolePositions()) {
             Role role = roleRepository.findByRolePosition(rolePosition);
             if (role == null) {
-                throw new GraphQLException("Role not found: " + rolePosition);
+                throw new CustomException("Role not found: " + rolePosition);
             }
             roles.add(role);
         }

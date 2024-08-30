@@ -1,21 +1,32 @@
 package org.BORDICO.Controllers;
 
-import graphql.GraphQLException;
 import lombok.RequiredArgsConstructor;
+import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.Entity.User;
 import org.BORDICO.Model.Inputs.UserInput;
-import org.BORDICO.Resolver.UserResolver;
-import org.springframework.graphql.data.method.annotation.Argument;
-import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.BORDICO.Service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final UserResolver userResolver;
-    @MutationMapping
-    public User addUser(@Argument UserInput userInput) throws GraphQLException {
-        return userResolver.addUser(userInput);
+    private final UserService userService;
+    @PostMapping
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<User> addUser(@RequestBody UserInput userInput) throws CustomException {
+        User newUser = userService.addUser(userInput);
+        return ResponseEntity.ok(newUser);
+    }
+    @PutMapping("/{userId}/profile-image")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<String> uploadUserImage(@PathVariable Long userId, @RequestParam("file") MultipartFile profileImage) throws IOException, CustomException {
+        String imageUrl = userService.uploadUserImage(userId, profileImage);
+        return ResponseEntity.ok(imageUrl);
     }
 }

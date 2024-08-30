@@ -1,8 +1,8 @@
 package org.BORDICO.Service;
 
-import graphql.GraphQLException;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.Entity.Cart;
 import org.BORDICO.Model.Entity.User;
 import org.BORDICO.Model.Entity.Role;
@@ -13,7 +13,14 @@ import org.BORDICO.Repository.RoleRepository;
 import org.BORDICO.Repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,22 +32,24 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final CartRepository cartRepository;
-    public User addUser(UserInput userInput) throws GraphQLException {
+    private final S3Client s3Client;
+    private final String bucketName = "bordico-bucket-test";
+    public User addUser(UserInput userInput) throws CustomException {
         if (userInput.getEmail().isBlank() || userInput.getPhone().isBlank() || userInput.getPassword().isBlank()) {
-            throw new GraphQLException("Empty values are not allowed");
+            throw new CustomException("Empty values are not allowed");
         }
         String phoneInput = userInput.getPhone().replaceAll("\\D", "");
         if (phoneInput.isBlank()) {
-            throw new GraphQLException("Phone number must contain at least one digit");
+            throw new CustomException("Phone number must contain at least one digit");
         }
         if (userRepository.findByEmail(userInput.getEmail()) != null) {
-            throw new GraphQLException("Email is already used: " + userInput.getEmail());
+            throw new CustomException("Email is already used: " + userInput.getEmail());
         }
         Set<Role> roles = new HashSet<>();
         for (RolePosition rolePosition : userInput.getRolePositions()) {
             Role role = roleRepository.findByRolePosition(rolePosition);
             if (role == null) {
-                throw new GraphQLException("Role not found: " + rolePosition);
+                throw new CustomException("Role not found: " + rolePosition);
             }
             roles.add(role);
         }
@@ -61,5 +70,23 @@ public class UserService {
         carts.add(cart);
         user.setCarts(carts);
         return userRepository.save(user);
+    }
+    public String uploadUserImage(Long userId, MultipartFile profileImage) throws IOException, CustomException {
+        String originalFilename = profileImage.getOriginalFilename();
+        if (originalFilename == null) {
+            throw new CustomException("File name cannot be null");
+        }
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new CustomException("User not found with id: " + userId));
+        String fileKey = "user-profile-images/" + userId + "/" + URLEncoder.encode(originalFilename, StandardCharsets.UTF_8);
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucketName)
+                .key(fileKey)
+                .build();
+        s3Client.putObject(putObjectRequest, RequestBody.fromBytes(profileImage.getBytes()));
+        String profileImageUrl = "https://" + bucketName + ".s3.amazonaws.com/" + fileKey;
+        user.setProfileImageUrl(profileImageUrl);
+        userRepository.save(user);
+        return profileImageUrl;
     }
 }

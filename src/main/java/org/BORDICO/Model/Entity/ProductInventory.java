@@ -30,6 +30,10 @@ public class ProductInventory {
     private String productReference;
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
+    @Column(name = "product_color")
+    private int productColor;
+    @Column(name = "is_Sold")
+    private Boolean is_Sold;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

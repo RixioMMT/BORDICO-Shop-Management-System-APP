@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
-public class GraphQLSecurity {
+public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final JWTAuthentication JWTAuthentication;
     @Bean
@@ -24,8 +24,8 @@ public class GraphQLSecurity {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/graphql", "/graphiql").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(sessionManagementCustomizer -> sessionManagementCustomizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
