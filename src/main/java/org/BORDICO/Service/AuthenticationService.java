@@ -57,6 +57,7 @@ public class AuthenticationService {
             }
             roles.add(role);
         }
+
         User user = User.builder()
                 .email(userInput.getEmail())
                 .phone(phoneInput)
@@ -66,6 +67,7 @@ public class AuthenticationService {
                 .roles(roles)
                 .build();
         user = userRepository.save(user);
+
         Set<Cart> carts = new HashSet<>();
         Cart cart = Cart.builder()
                 .user(user)
@@ -73,6 +75,7 @@ public class AuthenticationService {
         cart = cartRepository.save(cart);
         carts.add(cart);
         user.setCarts(carts);
+
         return userRepository.save(user);
     }
 }

@@ -24,9 +24,15 @@ public class UserController {
         return ResponseEntity.ok(newUser);
     }
     @PutMapping("/{userId}/profile-image")
-    @PreAuthorize("hasAuthority('CLIENT')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> uploadUserImage(@PathVariable Long userId, @RequestParam("file") MultipartFile profileImage) throws IOException, CustomException {
         String imageUrl = userService.uploadUserImage(userId, profileImage);
         return ResponseEntity.ok(imageUrl);
+    }
+    @PostMapping("/add-user-notification")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<User> addUserWithNotification(@RequestBody UserInput userInput) throws CustomException {
+        User newUser = userService.addUserWithNotification(userInput);
+        return ResponseEntity.ok(newUser);
     }
 }
