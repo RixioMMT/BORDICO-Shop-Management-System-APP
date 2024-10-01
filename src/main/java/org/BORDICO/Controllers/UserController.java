@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.UserDTO;
 import org.BORDICO.Model.Entity.User;
+import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Inputs.UserInput;
+import org.BORDICO.Model.Pagination.PageOutput;
 import org.BORDICO.Service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,6 +20,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    @GetMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<PageOutput<UserDTO>> getAllUsers(PageInput pageInput) {
+        PageOutput<UserDTO> usersPage = userService.getAllUsers(pageInput);
+        return ResponseEntity.ok(usersPage);
+    }
     @PostMapping
     @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserInput userInput) throws CustomException {

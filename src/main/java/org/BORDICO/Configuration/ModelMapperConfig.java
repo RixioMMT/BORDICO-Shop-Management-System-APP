@@ -25,7 +25,6 @@ public class ModelMapperConfig {
                 map().setProfileImageUrl(source.getProfileImageUrl());
                 map().setCreatedAt(source.getCreatedAt());
                 map().setUpdatedAt(source.getUpdatedAt());
-                map().setRoles((source.getRoles()));
             }
         });
 

@@ -2,6 +2,10 @@ package org.BORDICO.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Model.DTO.UserDTO;
+import org.BORDICO.Model.Inputs.PageInput;
+import org.BORDICO.Model.Pagination.PageOutput;
+import org.BORDICO.Util.ModelMapperUtil;
+import org.BORDICO.Util.PageUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.BORDICO.Exceptions.CustomException;
@@ -15,6 +19,7 @@ import org.BORDICO.Repository.CartRepository;
 import org.BORDICO.Repository.NotificationRepository;
 import org.BORDICO.Repository.RoleRepository;
 import org.BORDICO.Repository.UserRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +32,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +43,22 @@ public class UserService {
     private final CartRepository cartRepository;
     private final NotificationRepository notificationRepository;
     private final ModelMapper modelMapper;
+    private final ModelMapperUtil modelMapperUtil;
     private final LambdaService lambdaService;
     private final S3Client s3Client;
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
+    public PageOutput<UserDTO> getAllUsers(PageInput pageInput) {
+        Page<User> users = userRepository.findAll(PageUtil.buildPage(pageInput));
+        return new PageOutput<>(
+                users.getNumber(),
+                users.getTotalPages(),
+                users.getTotalElements(),
+                users.getContent().stream()
+                        .map(user -> modelMapperUtil.map(user, UserDTO.class))
+                        .collect(Collectors.toSet())
+        );
+    }
     public UserDTO addUser(UserInput userInput) throws CustomException {
         if (userInput.getEmail().isBlank() || userInput.getPhone().isBlank() || userInput.getPassword().isBlank()) {
             throw new CustomException("Empty values are not allowed");
