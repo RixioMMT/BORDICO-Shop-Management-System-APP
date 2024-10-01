@@ -1,5 +1,6 @@
 package org.BORDICO.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.BORDICO.Model.Enum.ReviewCategory;
@@ -22,12 +23,13 @@ public class Review {
     @Column(name = "description", nullable = false, unique = true, length = 100)
     private String description;
     @Enumerated(EnumType.STRING)
-    @Column(name = "reviewCategory", nullable = false)
+    @Column(name = "review_category", nullable = false)
     private ReviewCategory reviewCategory;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 }

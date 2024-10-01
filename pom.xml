@@ -86,9 +86,14 @@
             <version>2.20.56</version>
         </dependency>
         <!-- End of AWS -->
+        <!-- ModelMapper -->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <!-- End of ModelMapper -->
     </dependencies>
-
-
 
     <build>
         <plugins>

@@ -2,6 +2,7 @@ package org.BORDICO.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
+import org.BORDICO.Model.DTO.UserDTO;
 import org.BORDICO.Model.Entity.User;
 import org.BORDICO.Model.Inputs.UserInput;
 import org.BORDICO.Service.UserService;
@@ -19,8 +20,8 @@ public class UserController {
     private final UserService userService;
     @PostMapping
     @PreAuthorize("hasAuthority('CLIENT')")
-    public ResponseEntity<User> addUser(@RequestBody UserInput userInput) throws CustomException {
-        User newUser = userService.addUser(userInput);
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserInput userInput) throws CustomException {
+        UserDTO newUser = userService.addUser(userInput);
         return ResponseEntity.ok(newUser);
     }
     @PutMapping("/{userId}/profile-image")

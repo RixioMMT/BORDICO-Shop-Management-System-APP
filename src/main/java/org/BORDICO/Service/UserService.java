@@ -1,6 +1,8 @@
 package org.BORDICO.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.BORDICO.Model.DTO.UserDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.Entity.Cart;
@@ -34,11 +36,12 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CartRepository cartRepository;
     private final NotificationRepository notificationRepository;
+    private final ModelMapper modelMapper;
     private final LambdaService lambdaService;
     private final S3Client s3Client;
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
-    public User addUser(UserInput userInput) throws CustomException {
+    public UserDTO addUser(UserInput userInput) throws CustomException {
         if (userInput.getEmail().isBlank() || userInput.getPhone().isBlank() || userInput.getPassword().isBlank()) {
             throw new CustomException("Empty values are not allowed");
         }
@@ -73,7 +76,8 @@ public class UserService {
         cart = cartRepository.save(cart);
         carts.add(cart);
         user.setCarts(carts);
-        return userRepository.save(user);
+        userRepository.save(user);
+        return modelMapper.map(user, UserDTO.class);
     }
     public String uploadUserImage(Long userId, MultipartFile profileImage) throws IOException, CustomException {
         String originalFilename = profileImage.getOriginalFilename();

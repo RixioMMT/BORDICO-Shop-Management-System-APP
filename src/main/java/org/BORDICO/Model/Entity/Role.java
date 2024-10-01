@@ -1,4 +1,5 @@
 package org.BORDICO.Model.Entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.BORDICO.Model.Enum.RolePosition;
@@ -31,6 +32,7 @@ public class Role implements GrantedAuthority {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<User> users;
     @Override
     public String getAuthority() {
