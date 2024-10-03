@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "supply_inventory")
+@Table(name = "supply")
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SupplyInventory {
+public class Supply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,7 +46,4 @@ public class SupplyInventory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "outcome_order_id", nullable = false)
     private OutcomeOrder outcomeOrder;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_inventory_id", nullable = false)
-    private ProductInventory productInventory;
 }

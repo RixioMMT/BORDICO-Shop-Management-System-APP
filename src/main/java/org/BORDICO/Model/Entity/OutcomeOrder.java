@@ -31,5 +31,5 @@ public class OutcomeOrder {
     @JoinColumn(name = "outcome_id")
     private Outcome outcome;
     @OneToMany(mappedBy = "outcomeOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<SupplyInventory> supplies;
+    private Set<Supply> supplies;
 }

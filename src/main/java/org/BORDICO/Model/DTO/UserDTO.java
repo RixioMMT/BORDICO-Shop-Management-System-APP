@@ -25,8 +25,5 @@ public class UserDTO {
     private String profileImageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Set<Role> roles;
-    private Set<Notification> notifications;
-    private Set<Review> reviews;
-    private Set<Cart> carts;
+    private Set<String> roleNames;
 }

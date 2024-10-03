@@ -6,11 +6,7 @@ import org.BORDICO.Model.Enum.RolePosition;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-@Builder
-@Getter
-@Setter
+@Data
 public class UserInput {
     private String email;
     private String phone;

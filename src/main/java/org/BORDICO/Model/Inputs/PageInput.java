@@ -2,14 +2,13 @@ package org.BORDICO.Model.Inputs;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.BORDICO.Model.Enum.ESort;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data
 public class PageInput {
     private Integer pageNo = 0;
     private Integer pageSize = 10;

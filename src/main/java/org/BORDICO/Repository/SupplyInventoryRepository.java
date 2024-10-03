@@ -1,7 +1,7 @@
 package org.BORDICO.Repository;
 
-import org.BORDICO.Model.Entity.SupplyInventory;
+import org.BORDICO.Model.Entity.Supply;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SupplyInventoryRepository extends JpaRepository<SupplyInventory, Long> {
+public interface SupplyInventoryRepository extends JpaRepository<Supply, Long> {
 }

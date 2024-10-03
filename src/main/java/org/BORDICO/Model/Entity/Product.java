@@ -1,5 +1,6 @@
 package org.BORDICO.Model.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,10 +25,16 @@ public class Product {
     private Long id;
     @Column(name = "product_name", nullable = false, unique = true, length = 200)
     private String productName;
-    @Column(name = "product_sku_code", nullable = false, unique = true, length = 200)
-    private String productSkuCode;
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
+    @Column(name = "stock_quantity")
+    private int stockQuantity;
+    @Column(name = "current_investment")
+    private BigDecimal currentInvestment;
+    @Column(name = "units_sold")
+    private int unitsSold;
+    @Column(name = "overall_earnings")
+    private BigDecimal overallEarnings;
     @Column(name = "product_width", nullable = false)
     private double productWidth;
     @Column(name = "product_height", nullable = false)
@@ -49,7 +56,9 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories;
-    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pattern_id", nullable = false)
+    @JsonBackReference
     private Pattern pattern;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Review> reviews;

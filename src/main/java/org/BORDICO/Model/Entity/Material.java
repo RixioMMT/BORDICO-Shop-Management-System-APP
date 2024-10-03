@@ -3,6 +3,8 @@ package org.BORDICO.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "materials")
 @Setter
@@ -14,17 +16,12 @@ public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "supply_sku_code", nullable = false, length = 100)
-    private String supplySkuCode;
     @Column(name = "supply_name", nullable = false, length = 100)
     private String supplyName;
     @Column(name = "supply_is_yarn", nullable = false)
     private boolean supplyIsYarn;
     @Column(name = "yarn_grams")
-    private double yarnGrams;
-    @Column(name = "supply_brand", nullable = false, length = 100)
-    private String supplyBrand;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pattern_id", nullable = false)
-    private Pattern pattern;
+    private Double yarnGrams;
+    @ManyToMany(mappedBy = "materials")
+    private Set<Pattern> patterns;
 }
