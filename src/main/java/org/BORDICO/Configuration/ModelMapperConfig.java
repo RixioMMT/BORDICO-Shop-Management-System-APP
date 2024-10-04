@@ -1,9 +1,6 @@
 package org.BORDICO.Configuration;
 
-import org.BORDICO.Model.DTO.MaterialDTO;
-import org.BORDICO.Model.DTO.PatternDTO;
-import org.BORDICO.Model.DTO.ProductDTO;
-import org.BORDICO.Model.DTO.UserDTO;
+import org.BORDICO.Model.DTO.*;
 import org.BORDICO.Model.Entity.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -45,7 +42,7 @@ public class ModelMapperConfig {
             protected void configure() {
                 map().setId(source.getId());
                 map().setSupplyName(source.getSupplyName());
-                map().setSupplyIsYarn(source.isSupplyIsYarn());
+                map().setSupplyIsYarn(source.getSupplyIsYarn());
                 map().setYarnGrams(source.getYarnGrams());
             }
         });
@@ -89,6 +86,18 @@ public class ModelMapperConfig {
                         .map(Review::getTitle)
                         .collect(Collectors.toSet()))
                         .map(source.getReviews(), destination.getReviews());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Inventory, InventoryDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setProductName(source.getProductName());
+                map().setProductColorType(source.getProductColorType());
+                map().setIsSold(source.getIsSold());
+                map().setManufacturedDate(source.getManufacturedDate());
+                map().setSoldAt(source.getSoldAt());
             }
         });
 

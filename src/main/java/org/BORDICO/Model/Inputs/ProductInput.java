@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 public class ProductInput {
     private String productName;
     private BigDecimal productPrice;
-    private double productWidth;
-    private double productHeight;
-    private double productLength;
-    private double productWeight;
+    private Double productWidth;
+    private Double productHeight;
+    private Double productLength;
+    private Double productWeight;
 }

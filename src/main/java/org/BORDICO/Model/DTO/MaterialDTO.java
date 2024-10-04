@@ -6,6 +6,6 @@ import lombok.Data;
 public class MaterialDTO {
     private Long id;
     private String supplyName;
-    private boolean supplyIsYarn;
-    private double yarnGrams;
+    private Boolean supplyIsYarn;
+    private Double yarnGrams;
 }

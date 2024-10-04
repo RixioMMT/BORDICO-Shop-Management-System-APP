@@ -28,21 +28,21 @@ public class Product {
     @Column(name = "product_price", nullable = false)
     private BigDecimal productPrice;
     @Column(name = "stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
     @Column(name = "current_investment")
     private BigDecimal currentInvestment;
     @Column(name = "units_sold")
-    private int unitsSold;
+    private Integer unitsSold;
     @Column(name = "overall_earnings")
     private BigDecimal overallEarnings;
     @Column(name = "product_width", nullable = false)
-    private double productWidth;
+    private Double productWidth;
     @Column(name = "product_height", nullable = false)
-    private double productHeight;
+    private Double productHeight;
     @Column(name = "product_length", nullable = false)
-    private double productLength;
+    private Double productLength;
     @Column(name = "product_weight", nullable = false)
-    private double productWeight;
+    private Double productWeight;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -23,9 +23,7 @@ public class Inventory {
     @Column(name = "product_name", nullable = false, length = 200)
     private String productName;
     @Column(name = "product_color_type", nullable = false, length = 200)
-    private int productColorType;
-    @Column(name = "product_image_url")
-    private String productImageUrl;
+    private String productColorType;
     @Column(name = "is_Sold",  nullable = false)
     private Boolean isSold;
     @Column(name = "manufactured_date", nullable = false)

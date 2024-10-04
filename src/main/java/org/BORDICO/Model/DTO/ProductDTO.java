@@ -10,10 +10,10 @@ public class ProductDTO {
     private Long Id;
     private String productName;
     private BigDecimal productPrice;
-    private double productWidth;
-    private double productHeight;
-    private double productLength;
-    private double productWeight;
+    private Double productWidth;
+    private Double productHeight;
+    private Double productLength;
+    private Double productWeight;
     private Set<String> categoryNames;
     private String patternName;
     private Set<String> reviews;
