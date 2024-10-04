@@ -54,8 +54,8 @@ public class MaterialService {
     }
     private MaterialDTO getMaterialFromInput(MaterialInput materialInput, Material material) {
         material.setSupplyName(materialInput.getSupplyName());
-        material.setSupplyIsYarn(materialInput.isSupplyIsYarn());
-        if (materialInput.isSupplyIsYarn()) {
+        material.setSupplyIsYarn(materialInput.getSupplyIsYarn());
+        if (materialInput.getSupplyIsYarn()) {
             material.setYarnGrams(materialInput.getYarnGrams());
         } else {
             material.setYarnGrams(null);
