@@ -18,8 +18,8 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true, length = 100)
-    private String name;
+    @Column(name = "title", nullable = false, unique = true, length = 100)
+    private String title;
     @Column(name = "description", nullable = false, unique = true, length = 100)
     private String description;
     @Enumerated(EnumType.STRING)

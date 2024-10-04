@@ -3,8 +3,6 @@ package org.BORDICO.Util;
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Model.Enum.ESort;
 import org.BORDICO.Model.Inputs.PageInput;
-import org.BORDICO.Model.Pagination.PageOutput;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

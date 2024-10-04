@@ -21,10 +21,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", nullable = false, unique = true, length = 100)
-    private String name;
-    @Column(name = "description", length = 200)
-    private String description;
+    @Column(name = "category_name", nullable = false, unique = true, length = 100)
+    private String categoryName;
+    @Column(name = "category_description", length = 200)
+    private String categoryDescription;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

@@ -1,15 +1,12 @@
 package org.BORDICO.Model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "inventory")
@@ -31,8 +28,8 @@ public class Inventory {
     private String productImageUrl;
     @Column(name = "is_Sold",  nullable = false)
     private Boolean isSold;
-    @Column(name = "manufactured_at", nullable = false)
-    private LocalDateTime manufacturedAt;
+    @Column(name = "manufactured_date", nullable = false)
+    private LocalDateTime manufacturedDate;
     @Column(name = "sold_at",  nullable = false)
     private LocalDateTime soldAt;
     @CreatedDate

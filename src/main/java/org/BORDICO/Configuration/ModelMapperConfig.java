@@ -1,10 +1,10 @@
 package org.BORDICO.Configuration;
 
 import org.BORDICO.Model.DTO.MaterialDTO;
+import org.BORDICO.Model.DTO.PatternDTO;
+import org.BORDICO.Model.DTO.ProductDTO;
 import org.BORDICO.Model.DTO.UserDTO;
-import org.BORDICO.Model.Entity.Material;
-import org.BORDICO.Model.Entity.Role;
-import org.BORDICO.Model.Entity.User;
+import org.BORDICO.Model.Entity.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,9 @@ public class ModelMapperConfig {
 
     @Bean
     public ModelMapper modelMapper() {
+
         ModelMapper modelMapper = new ModelMapper();
+
         modelMapper.addMappings(new PropertyMap<User, UserDTO>() {
             @Override
             @SuppressWarnings("unchecked")
@@ -45,6 +47,48 @@ public class ModelMapperConfig {
                 map().setSupplyName(source.getSupplyName());
                 map().setSupplyIsYarn(source.isSupplyIsYarn());
                 map().setYarnGrams(source.getYarnGrams());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Pattern, PatternDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setPatternName(source.getPatternName());
+                map().setPatternImageUrl(source.getPatternImageUrl());
+                map().setPatternPdfUrl(source.getPatternPdfUrl());
+                using(ctx -> ((Set<Product>) ctx.getSource()).stream()
+                        .map(Product::getProductName)
+                        .collect(Collectors.toSet()))
+                        .map(source.getProducts(), destination.getProductNames());
+                using(ctx -> ((Set<Material>) ctx.getSource()).stream()
+                        .map(Material::getSupplyName)
+                        .collect(Collectors.toSet()))
+                        .map(source.getMaterials(), destination.getMaterialNames());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Product, ProductDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setProductName(source.getProductName());
+                map().setProductPrice(source.getProductPrice());
+                map().setProductWidth(source.getProductWidth());
+                map().setProductHeight(source.getProductHeight());
+                map().setProductLength(source.getProductLength());
+                map().setProductWeight(source.getProductWeight());
+                map(source.getPattern().getPatternName(), destination.getPatternName());
+                using(ctx -> ((Set<Category>) ctx.getSource()).stream()
+                        .map(Category::getCategoryName)
+                        .collect(Collectors.toSet()))
+                        .map(source.getCategories(), destination.getCategoryNames());
+                using(ctx -> ((Set<Review>) ctx.getSource()).stream()
+                        .map(Review::getTitle)
+                        .collect(Collectors.toSet()))
+                        .map(source.getReviews(), destination.getReviews());
             }
         });
 

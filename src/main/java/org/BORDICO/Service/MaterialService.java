@@ -24,14 +24,7 @@ public class MaterialService {
     private final ModelMapperUtil modelMapperUtil;
     public MaterialDTO createMaterial(MaterialInput materialInput) {
         Material material = new Material();
-        material.setSupplyName(materialInput.getSupplyName());
-        if (materialInput.isSupplyIsYarn()) {
-            material.setYarnGrams(materialInput.getYarnGrams());
-        } else {
-            material.setYarnGrams(null);
-        }
-        material = materialRepository.save(material);
-        return modelMapper.map(material, MaterialDTO.class);
+        return getMaterialFromInput(materialInput, material);
     }
     public PageOutput<MaterialDTO> getAllMaterials(PageInput pageInput) {
         Page<Material> materials = materialRepository.findAll(PageUtil.buildPage(pageInput));
@@ -52,6 +45,14 @@ public class MaterialService {
     public MaterialDTO updateMaterial(Long id, MaterialInput materialInput) throws CustomException {
         Material material = materialRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Material with id " + id + " not found"));
+        return getMaterialFromInput(materialInput, material);
+    }
+    public void deleteMaterial(Long id) throws CustomException {
+        Material material = materialRepository.findById(id)
+                .orElseThrow(() -> new CustomException("Material with id " + id + " not found"));
+        materialRepository.delete(material);
+    }
+    private MaterialDTO getMaterialFromInput(MaterialInput materialInput, Material material) {
         material.setSupplyName(materialInput.getSupplyName());
         material.setSupplyIsYarn(materialInput.isSupplyIsYarn());
         if (materialInput.isSupplyIsYarn()) {
@@ -61,10 +62,5 @@ public class MaterialService {
         }
         material = materialRepository.save(material);
         return modelMapper.map(material, MaterialDTO.class);
-    }
-    public void deleteMaterial(Long id) throws CustomException {
-        Material material = materialRepository.findById(id)
-                .orElseThrow(() -> new CustomException("Material with id " + id + " not found"));
-        materialRepository.delete(material);
     }
 }

@@ -45,6 +45,6 @@ public class MaterialController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> deleteMaterial(@PathVariable Long id) throws CustomException {
         materialService.deleteMaterial(id);
-        return ResponseEntity.ok("Material with id " + id + " was deleted successfully."); // Send confirmation message
+        return ResponseEntity.ok("Material with id " + id + " was deleted successfully.");
     }
 }
