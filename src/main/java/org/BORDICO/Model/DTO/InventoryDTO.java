@@ -12,5 +12,4 @@ public class InventoryDTO {
     private Boolean isSold;
     private LocalDateTime manufacturedDate;
     private LocalDateTime soldAt;
-
 }

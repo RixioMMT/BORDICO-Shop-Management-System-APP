@@ -1,6 +1,5 @@
 package org.BORDICO.Model.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.BORDICO.Model.Enum.ReviewCategory;
@@ -18,9 +17,9 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "title", nullable = false, unique = true, length = 100)
+    @Column(name = "title", nullable = false, length = 100)
     private String title;
-    @Column(name = "description", nullable = false, unique = true, length = 100)
+    @Column(name = "description", length = 200)
     private String description;
     @Enumerated(EnumType.STRING)
     @Column(name = "review_category", nullable = false)

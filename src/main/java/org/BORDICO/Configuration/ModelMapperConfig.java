@@ -101,6 +101,42 @@ public class ModelMapperConfig {
             }
         });
 
+        modelMapper.addMappings(new PropertyMap<Category, CategoryDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setCategoryName(source.getCategoryName());
+                map().setCategoryDescription(source.getCategoryDescription());
+                using(ctx -> ((Set<Product>) ctx.getSource()).stream()
+                        .map(Product::getProductName)
+                        .collect(Collectors.toSet()))
+                        .map(source.getProducts(), destination.getProductNames());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Review, ReviewDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setTitle(source.getTitle());
+                map().setDescription(source.getDescription());
+                map().setReviewCategory(source.getReviewCategory());
+                map().setProductId(source.getProduct().getId());
+                map().setUserId(source.getUser().getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Notification, NotificationDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setNotificationName(source.getNotificationName());
+                map().setNotificationDescription(source.getNotificationDescription());
+                map().setUserId(source.getUser().getId());
+            }
+        });
+
         return modelMapper;
     }
 }

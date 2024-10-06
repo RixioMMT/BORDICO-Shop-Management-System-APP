@@ -28,7 +28,7 @@ public class Inventory {
     private Boolean isSold;
     @Column(name = "manufactured_date", nullable = false)
     private LocalDateTime manufacturedDate;
-    @Column(name = "sold_at",  nullable = false)
+    @Column(name = "sold_at")
     private LocalDateTime soldAt;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
