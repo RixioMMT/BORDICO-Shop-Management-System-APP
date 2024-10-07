@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 @Data
 public class InventoryDTO {
     private Long Id;
-    private String productName;
-    private String productColorType;
+    private String itemName;
+    private String itemColorType;
     private Boolean isSold;
     private LocalDateTime manufacturedDate;
     private LocalDateTime soldAt;

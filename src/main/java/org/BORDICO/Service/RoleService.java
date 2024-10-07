@@ -29,13 +29,4 @@ public class RoleService {
         role.setRolePosition(rolePosition);
         roleRepository.save(role);
     }
-    public Role addRole(RoleInput roleInput) throws CustomException {
-        RolePosition rolePosition = roleInput.getRolePosition();
-        if (roleRepository.findByRolePosition(rolePosition) != null) {
-            throw new CustomException(rolePosition + " already exists.");
-        }
-        Role role = new Role();
-        role.setRolePosition(rolePosition);
-        return roleRepository.save(role);
-    }
 }

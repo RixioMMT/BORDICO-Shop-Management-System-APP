@@ -55,11 +55,11 @@ public class InventoryService {
         inventoryRepository.delete(inventory);
     }
     private InventoryDTO getInventoryFromInput(InventoryInput inventoryInput, Inventory inventory) throws CustomException {
-        if (!productRepository.existsByProductName(inventoryInput.getProductName())) {
+        if (!productRepository.existsByProductName(inventoryInput.getItemName())) {
             throw new CustomException("Product must be registered before adding item");
         }
-        inventory.setProductName(inventoryInput.getProductName());
-        inventory.setProductColorType(inventoryInput.getProductColorType());
+        inventory.setItemName(inventoryInput.getItemName());
+        inventory.setItemColorType(inventoryInput.getItemColorType());
         inventory.setIsSold(inventoryInput.getIsSold());
         inventory.setManufacturedDate(inventoryInput.getManufacturedDate());
         if (inventoryInput.getIsSold()) {

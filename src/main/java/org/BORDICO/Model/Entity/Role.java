@@ -23,7 +23,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    @Column(name = "role_position", nullable = false)
+    @Column(name = "role_position", nullable = false, unique = true)
     private RolePosition rolePosition;
     @CreatedDate
     @Column(name = "created_at", updatable = false)

@@ -20,10 +20,10 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "product_name", nullable = false, length = 200)
-    private String productName;
-    @Column(name = "product_color_type", nullable = false, length = 200)
-    private String productColorType;
+    @Column(name = "item_name", nullable = false, length = 100)
+    private String itemName;
+    @Column(name = "item_color_type", nullable = false, length = 200)
+    private String itemColorType;
     @Column(name = "is_Sold",  nullable = false)
     private Boolean isSold;
     @Column(name = "manufactured_date", nullable = false)

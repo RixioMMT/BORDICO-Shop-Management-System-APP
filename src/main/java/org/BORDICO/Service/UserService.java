@@ -152,6 +152,7 @@ public class UserService {
         carts.add(cart);
         user.setCarts(carts);
         userRepository.save(user);
+
         Set<Notification> notifications = new HashSet<>();
         Notification notification = Notification.builder()
                 .notificationName("User Created")

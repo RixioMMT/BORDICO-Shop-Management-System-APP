@@ -22,14 +22,14 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "product_name", nullable = false, length = 100)
-    private String productName;
-    @Column(name = "sku_code", nullable = false, length = 100)
-    private String productSkuCode;
+    @Column(name = "item_name", nullable = false, length = 100)
+    private String itemName;
+    @Column(name = "item_color_type", nullable = false, length = 200)
+    private String itemColorType;
     @Column(name = "cart_item_price", nullable = false)
     private BigDecimal cartItemPrice;
-    @Column(name = "product_quantity", nullable = false)
-    private int productQuantity;
+    @Column(name = "item_quantity", nullable = false)
+    private Integer itemQuantity;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

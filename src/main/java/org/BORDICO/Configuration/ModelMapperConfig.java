@@ -2,6 +2,7 @@ package org.BORDICO.Configuration;
 
 import org.BORDICO.Model.DTO.*;
 import org.BORDICO.Model.Entity.*;
+import org.BORDICO.Model.Inputs.CartInput;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
@@ -93,8 +94,8 @@ public class ModelMapperConfig {
             @Override
             protected void configure() {
                 map().setId(source.getId());
-                map().setProductName(source.getProductName());
-                map().setProductColorType(source.getProductColorType());
+                map().setItemName(source.getItemName());
+                map().setItemColorType(source.getItemColorType());
                 map().setIsSold(source.getIsSold());
                 map().setManufacturedDate(source.getManufacturedDate());
                 map().setSoldAt(source.getSoldAt());
@@ -136,6 +137,36 @@ public class ModelMapperConfig {
                 map().setUserId(source.getUser().getId());
             }
         });
+
+        modelMapper.addMappings(new PropertyMap<Cart, CartDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setCartPrice(source.getCartPrice());
+                map().setCartQuantity(source.getCartQuantity());
+                map().setCartStatus(source.getCartStatus());
+                map().setUserId(source.getUser().getId());
+                using(ctx -> ((Set<CartItem>) ctx.getSource()).stream()
+                        .map(CartItem::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getCartItems(), destination.getCartItemsId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<CartItem, CartItemDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setItemName(source.getItemName());
+                map().setItemColorType(source.getItemColorType());
+                map().setCartItemPrice(source.getCartItemPrice());
+                map().setItemQuantity(source.getItemQuantity());
+                map().setCartId(source.getCart().getId());
+            }
+        });
+
+
 
         return modelMapper;
     }
