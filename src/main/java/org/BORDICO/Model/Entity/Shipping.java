@@ -25,7 +25,7 @@ public class Shipping {
     private String carrier;
     @Column(name = "tracking_number",length = 100)
     private String trackingNumber;
-    @Column(name = "shipping_date", nullable = false)
+    @Column(name = "shipping_date")
     private LocalDateTime shippingDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -38,4 +38,10 @@ public class Shipping {
     private LocalDateTime updatedAt;
     @OneToOne(mappedBy = "shipping", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private IncomeOrder incomeOrder;
+    @PrePersist
+    public void prePersist() {
+        if (shippingStatus == null) {
+            shippingStatus = ShippingStatus.PENDING;
+        }
+    }
 }

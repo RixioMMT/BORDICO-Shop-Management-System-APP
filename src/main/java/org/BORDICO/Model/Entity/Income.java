@@ -23,12 +23,8 @@ public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "product_reference", nullable = false, length = 100)
+    @Column(name = "income_reference", nullable = false, length = 100)
     private String productReference;
-    @Column(name = "income_name",length = 100)
-    private String incomeName;
-    @Column(name = "product_color")
-    private int productColor;
     @Column(name = "income_description",length = 200)
     private String incomeDescription;
     @Column(name = "income_price", nullable = false)

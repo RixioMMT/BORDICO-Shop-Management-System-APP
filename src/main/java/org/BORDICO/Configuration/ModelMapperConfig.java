@@ -195,6 +195,31 @@ public class ModelMapperConfig {
             }
         });
 
+        modelMapper.addMappings(new PropertyMap<Income, IncomeDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setProductReference(source.getProductReference());
+                map().setIncomeDescription(source.getIncomeDescription());
+                map().setIncomePrice(source.getIncomePrice());
+                map().setIncomePlatform(source.getIncomePlatform());
+                map().setPaymentMethod(source.getPaymentMethod());
+                map().setIncomeOrderId(source.getIncomeOrder().getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Shipping, ShippingDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setCarrier(source.getCarrier());
+                map().setTrackingNumber(source.getTrackingNumber());
+                map().setShippingDate(source.getShippingDate());
+                map().setShippingStatus(source.getShippingStatus());
+                map().setIncomeOrder(source.getIncomeOrder().getId());
+            }
+        });
+
         return modelMapper;
     }
 }
