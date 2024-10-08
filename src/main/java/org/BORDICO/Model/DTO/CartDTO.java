@@ -14,4 +14,5 @@ public class CartDTO {
     private CartStatus cartStatus;
     private Long userId;
     private Set<Long> cartItemsId;
+    private Long paymentId;
 }

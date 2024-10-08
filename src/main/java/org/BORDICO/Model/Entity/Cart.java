@@ -41,6 +41,9 @@ public class Cart {
     private User user;
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CartItem> cartItems;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
     @PrePersist
     public void prePersist() {
         if (cartPrice == null) {

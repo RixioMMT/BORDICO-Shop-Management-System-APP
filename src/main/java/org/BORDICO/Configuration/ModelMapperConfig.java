@@ -2,7 +2,6 @@ package org.BORDICO.Configuration;
 
 import org.BORDICO.Model.DTO.*;
 import org.BORDICO.Model.Entity.*;
-import org.BORDICO.Model.Inputs.CartInput;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.context.annotation.Bean;
@@ -151,6 +150,7 @@ public class ModelMapperConfig {
                         .map(CartItem::getId)
                         .collect(Collectors.toSet()))
                         .map(source.getCartItems(), destination.getCartItemsId());
+                map().setPaymentId(source.getPayment().getId());
             }
         });
 
@@ -166,7 +166,34 @@ public class ModelMapperConfig {
             }
         });
 
+        modelMapper.addMappings(new PropertyMap<Payment, PaymentDTO>() {
+            @Override
+            protected void configure() {
+                map().setClientName(source.getClientName());
+                map().setBank(source.getBank());
+                map().setConfirmationNumber(source.getConfirmationNumber());
+                map().setPaymentPrice(source.getPaymentPrice());
+                map().setPaymentMethod(source.getPaymentMethod());
+                map().setPaymentStatus(source.getPaymentStatus());
+                map().setConfirmationDate(source.getConfirmationDate());
+                map().setCartId(source.getCart().getId());
+                map().setIncomeOrderId(source.getIncomeOrder().getId());
+            }
+        });
 
+        modelMapper.addMappings(new PropertyMap<IncomeOrder, IncomeOrderDTO>() {
+            @Override
+            protected void configure() {
+                map().setClientName(source.getClientName());
+                map().setShippingAddress(source.getShippingAddress());
+                map().setOrderPrice(source.getOrderPrice());
+                map().setPaymentMethod(source.getPaymentMethod());
+                map().setIncomePlatform(source.getIncomePlatform());
+                map().setPaymentId(source.getPayment().getId());
+                map().setIncomeId(source.getIncome().getId());
+                map().setShippingId(source.getShipping().getId());
+            }
+        });
 
         return modelMapper;
     }

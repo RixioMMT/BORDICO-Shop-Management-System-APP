@@ -2,7 +2,7 @@ package org.BORDICO.Model.Enum;
 
 public enum PaymentStatus {
     PENDING,
-    COMPLETED,
+    VERIFIED,
     FAILED,
     REFUNDED,
     CANCELED,

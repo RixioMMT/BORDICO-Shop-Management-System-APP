@@ -23,8 +23,6 @@ public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "product_sku_code", length = 100)
-    private String productSkuCode;
     @Column(name = "product_reference", nullable = false, length = 100)
     private String productReference;
     @Column(name = "income_name",length = 100)
