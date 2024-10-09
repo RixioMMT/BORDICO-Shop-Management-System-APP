@@ -256,6 +256,39 @@ public class ModelMapperConfig {
             }
         });
 
+        modelMapper.addMappings(new PropertyMap<OutcomeOrder, OutcomeOrderDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setOrderPlace(source.getOrderPlace());
+                map().setOrderPrice(source.getOrderPrice());
+                map().setPaymentMethod(source.getPaymentMethod());
+                map().setOutcomeId(source.getOutcome().getId());
+                using(ctx -> ((Set<Supply>) ctx.getSource()).stream()
+                        .map(Supply::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getSupplies(), destination.getSuppliesId());
+                using(ctx -> ((Set<SupplyInventory>) ctx.getSource()).stream()
+                        .map(SupplyInventory::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getSuppliesInventory(), destination.getSuppliesInventoryId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<SupplyInventory, SupplyInventoryDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setSupplyName(source.getSupplyName());
+                map().setSupplyPrice(source.getSupplyPrice());
+                map().setSupplyIsYarn(source.getSupplyIsYarn());
+                map().setYarnGrams(source.getYarnGrams());
+                map().setSupplyBrand(source.getSupplyBrand());
+                map().setOutcomeOrderId(source.getOutcomeOrder().getId());
+            }
+        });
+
         return modelMapper;
     }
 }
