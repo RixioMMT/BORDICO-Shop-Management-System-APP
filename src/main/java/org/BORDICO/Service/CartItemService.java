@@ -10,7 +10,7 @@ import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Pagination.PageOutput;
 import org.BORDICO.Repository.CartItemRepository;
 import org.BORDICO.Repository.CartRepository;
-import org.BORDICO.Repository.InventoryRepository;
+import org.BORDICO.Repository.ProductInventoryRepository;
 import org.BORDICO.Repository.ProductRepository;
 import org.BORDICO.Util.ModelMapperUtil;
 import org.BORDICO.Util.PageUtil;
@@ -27,7 +27,7 @@ public class CartItemService {
     private final CartItemRepository cartItemRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtil modelMapperUtil;
-    private final InventoryRepository inventoryRepository;
+    private final ProductInventoryRepository productInventoryRepository;
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     public CartItemDTO createCartItem(CartItemInput cartItemInput) throws CustomException {
@@ -63,10 +63,10 @@ public class CartItemService {
     private CartItemDTO getCartItemFromInput(CartItemInput cartItemInput, CartItem cartItem) throws CustomException {
         Cart cart = cartRepository.findById(cartItemInput.getCartId())
                 .orElseThrow(() -> new CustomException("Cart with ID " + cartItemInput.getCartId() + " not found"));
-        if (!inventoryRepository.existsByItemNameAndItemColorType(cartItemInput.getItemName(), cartItemInput.getItemColorType())) {
+        if (!productInventoryRepository.existsByItemNameAndItemColorType(cartItemInput.getItemName(), cartItemInput.getItemColorType())) {
             throw new CustomException("Product with name " + cartItemInput.getItemName() + " and color " + cartItemInput.getItemColorType() + " not found in inventory.");
         }
-        Integer availableQuantity = inventoryRepository.countAvailableItemsByItemNameAndItemColorType(cartItemInput.getItemName(), cartItemInput.getItemColorType());
+        Integer availableQuantity = productInventoryRepository.countAvailableItemsByItemNameAndItemColorType(cartItemInput.getItemName(), cartItemInput.getItemColorType());
         if (cartItemInput.getItemQuantity() > availableQuantity) {
             throw new CustomException("Insufficient product quantity for " + cartItemInput.getItemName() + " in color " + cartItemInput.getItemColorType());
         }

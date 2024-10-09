@@ -58,11 +58,11 @@ public class ModelMapperConfig {
                 using(ctx -> ((Set<Product>) ctx.getSource()).stream()
                         .map(Product::getProductName)
                         .collect(Collectors.toSet()))
-                        .map(source.getProducts(), destination.getProductNames());
+                        .map(source.getProducts(), destination.getProductsId());
                 using(ctx -> ((Set<Material>) ctx.getSource()).stream()
                         .map(Material::getSupplyName)
                         .collect(Collectors.toSet()))
-                        .map(source.getMaterials(), destination.getMaterialNames());
+                        .map(source.getMaterials(), destination.getMaterialsId());
             }
         });
 
@@ -89,7 +89,7 @@ public class ModelMapperConfig {
             }
         });
 
-        modelMapper.addMappings(new PropertyMap<Inventory, InventoryDTO>() {
+        modelMapper.addMappings(new PropertyMap<ProductInventory, ProductInventoryDTO>() {
             @Override
             protected void configure() {
                 map().setId(source.getId());
@@ -98,6 +98,7 @@ public class ModelMapperConfig {
                 map().setIsSold(source.getIsSold());
                 map().setManufacturedDate(source.getManufacturedDate());
                 map().setSoldAt(source.getSoldAt());
+                map().setIncomeOrderId(source.getIncomeOrder().getId());
             }
         });
 
@@ -183,7 +184,9 @@ public class ModelMapperConfig {
 
         modelMapper.addMappings(new PropertyMap<IncomeOrder, IncomeOrderDTO>() {
             @Override
+            @SuppressWarnings("unchecked")
             protected void configure() {
+                map().setId(source.getId());
                 map().setClientName(source.getClientName());
                 map().setShippingAddress(source.getShippingAddress());
                 map().setOrderPrice(source.getOrderPrice());
@@ -192,6 +195,10 @@ public class ModelMapperConfig {
                 map().setPaymentId(source.getPayment().getId());
                 map().setIncomeId(source.getIncome().getId());
                 map().setShippingId(source.getShipping().getId());
+                using(ctx -> ((Set<ProductInventory>) ctx.getSource()).stream()
+                        .map(ProductInventory::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getItemsInventory(), destination.getItemsInventoryId());
             }
         });
 
@@ -199,7 +206,6 @@ public class ModelMapperConfig {
             @Override
             protected void configure() {
                 map().setId(source.getId());
-                map().setProductReference(source.getProductReference());
                 map().setIncomeDescription(source.getIncomeDescription());
                 map().setIncomePrice(source.getIncomePrice());
                 map().setIncomePlatform(source.getIncomePlatform());
@@ -217,6 +223,36 @@ public class ModelMapperConfig {
                 map().setShippingDate(source.getShippingDate());
                 map().setShippingStatus(source.getShippingStatus());
                 map().setIncomeOrder(source.getIncomeOrder().getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Outcome, OutcomeDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setOutcomeDescription(source.getOutcomeDescription());
+                map().setOutcomePlace(source.getOutcomePlace());
+                map().setOutcomePrice(source.getOutcomePrice());
+                map().setPaymentMethod(source.getPaymentMethod());
+                map().setOutcomeOrderId(source.getOutcomeOrder().getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<Supply, SupplyDTO>() {
+            @Override
+            @SuppressWarnings("unchecked")
+            protected void configure() {
+                map().setId(source.getId());
+                map().setSupplyName(source.getSupplyName());
+                map().setSupplyPrice(source.getSupplyPrice());
+                map().setSupplyQuantity(source.getSupplyQuantity());
+                map().setSupplyIsYarn(source.getSupplyIsYarn());
+                map().setYarnGrams(source.getYarnGrams());
+                map().setSupplyBrand(source.getSupplyBrand());
+                using(ctx -> ((Set<OutcomeOrder>) ctx.getSource()).stream()
+                        .map(OutcomeOrder::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getOutcomeOrders(), destination.getOutcomeOrdersId());
             }
         });
 

@@ -58,7 +58,6 @@ public class Product {
     private Set<Category> categories;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pattern_id")
-    @JsonBackReference
     private Pattern pattern;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Review> reviews;

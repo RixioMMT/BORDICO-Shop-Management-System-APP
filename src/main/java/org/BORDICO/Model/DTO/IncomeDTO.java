@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Data
 public class IncomeDTO {
     private Long id;
-    private String productReference;
     private String incomeDescription;
     private BigDecimal incomePrice;
     private IncomePlatform incomePlatform;

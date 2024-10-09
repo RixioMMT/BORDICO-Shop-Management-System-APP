@@ -58,7 +58,6 @@ public class IncomeService {
     private IncomeDTO getIncomeFromInput(IncomeInput incomeInput, Income income) throws CustomException {
         IncomeOrder incomeOrder = incomeOrderRepository.findById(incomeInput.getIncomeOrderId())
                 .orElseThrow(() -> new CustomException("IncomeOrder with ID " + incomeInput.getIncomeOrderId() + " not found"));
-        income.setProductReference(incomeInput.getProductReference());
         income.setIncomeDescription(incomeInput.getIncomeDescription());
         income.setIncomePrice(incomeInput.getIncomePrice());
         income.setIncomePlatform(incomeInput.getIncomePlatform());

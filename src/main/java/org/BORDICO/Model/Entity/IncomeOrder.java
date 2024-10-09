@@ -42,6 +42,8 @@ public class IncomeOrder {
     private LocalDateTime updatedAt;
     @OneToOne(mappedBy = "incomeOrder", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Payment payment;
+    @OneToMany(mappedBy = "incomeOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ProductInventory> itemsInventory;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "income_id", nullable = false)
     private Income income;

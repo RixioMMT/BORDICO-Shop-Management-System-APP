@@ -10,6 +10,6 @@ public class PatternDTO {
     private String patternName;
     private String patternImageUrl;
     private String patternPdfUrl;
-    private Set<String> productNames;
-    private Set<String> materialNames;
+    private Set<Long> productsId;
+    private Set<Long> materialsId;
 }

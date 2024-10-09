@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class InventoryInput {
+public class ProductInventoryInput {
     private String itemName;
     private String itemColorType;
     private Boolean isSold;

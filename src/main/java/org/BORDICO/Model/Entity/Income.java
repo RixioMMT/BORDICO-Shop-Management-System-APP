@@ -23,9 +23,7 @@ public class Income {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "income_reference", nullable = false, length = 100)
-    private String productReference;
-    @Column(name = "income_description",length = 200)
+    @Column(name = "income_description", length = 200)
     private String incomeDescription;
     @Column(name = "income_price", nullable = false)
     private BigDecimal incomePrice;

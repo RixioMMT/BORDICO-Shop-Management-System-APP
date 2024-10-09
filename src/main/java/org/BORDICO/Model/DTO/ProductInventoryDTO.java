@@ -1,15 +1,17 @@
 package org.BORDICO.Model.DTO;
 
 import lombok.Data;
+import org.BORDICO.Model.Entity.IncomeOrder;
 
 import java.time.LocalDateTime;
 
 @Data
-public class InventoryDTO {
+public class ProductInventoryDTO {
     private Long Id;
     private String itemName;
     private String itemColorType;
     private Boolean isSold;
     private LocalDateTime manufacturedDate;
     private LocalDateTime soldAt;
+    private Long incomeOrderId;
 }

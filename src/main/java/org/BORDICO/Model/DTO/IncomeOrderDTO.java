@@ -1,8 +1,11 @@
 package org.BORDICO.Model.DTO;
 
 import lombok.Data;
+import org.BORDICO.Model.Entity.ProductInventory;
 import org.BORDICO.Model.Enum.IncomePlatform;
 import org.BORDICO.Model.Enum.PaymentMethod;
+
+import java.util.Set;
 
 @Data
 public class IncomeOrderDTO {
@@ -15,4 +18,5 @@ public class IncomeOrderDTO {
     private Long paymentId;
     private Long incomeId;
     private Long shippingId;
+    private Set<Long> itemsInventoryId;
 }
