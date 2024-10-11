@@ -13,6 +13,5 @@ public class OutcomeOrderDTO {
     private BigDecimal orderPrice;
     private PaymentMethod paymentMethod;
     private Long outcomeId;
-    private Set<Long> suppliesId;
     private Set<Long> suppliesInventoryId;
 }

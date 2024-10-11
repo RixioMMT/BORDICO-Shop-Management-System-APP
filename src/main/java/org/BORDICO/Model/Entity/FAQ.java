@@ -3,7 +3,6 @@ package org.BORDICO.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.BORDICO.Model.Enum.FAQCategory;
-import org.BORDICO.Model.Enum.OS;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -28,7 +27,7 @@ public class FAQ {
     private String answer;
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
-    private FAQCategory category;
+    private FAQCategory faqCategory;
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

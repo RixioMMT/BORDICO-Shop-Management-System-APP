@@ -29,13 +29,6 @@ public class OutcomeOrder {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "outcome_id")
     private Outcome outcome;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "outcome_orders_supplies",
-            joinColumns = @JoinColumn(name = "outcome_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "supplies_id")
-    )
-    private Set<Supply> supplies;
     @OneToMany(mappedBy = "outcomeOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<SupplyInventory> suppliesInventory;
 }

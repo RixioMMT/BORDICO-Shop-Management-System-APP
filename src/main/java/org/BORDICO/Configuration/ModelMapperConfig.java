@@ -238,24 +238,6 @@ public class ModelMapperConfig {
             }
         });
 
-        modelMapper.addMappings(new PropertyMap<Supply, SupplyDTO>() {
-            @Override
-            @SuppressWarnings("unchecked")
-            protected void configure() {
-                map().setId(source.getId());
-                map().setSupplyName(source.getSupplyName());
-                map().setSupplyPrice(source.getSupplyPrice());
-                map().setSupplyQuantity(source.getSupplyQuantity());
-                map().setSupplyIsYarn(source.getSupplyIsYarn());
-                map().setYarnGrams(source.getYarnGrams());
-                map().setSupplyBrand(source.getSupplyBrand());
-                using(ctx -> ((Set<OutcomeOrder>) ctx.getSource()).stream()
-                        .map(OutcomeOrder::getId)
-                        .collect(Collectors.toSet()))
-                        .map(source.getOutcomeOrders(), destination.getOutcomeOrdersId());
-            }
-        });
-
         modelMapper.addMappings(new PropertyMap<OutcomeOrder, OutcomeOrderDTO>() {
             @Override
             @SuppressWarnings("unchecked")
@@ -265,10 +247,6 @@ public class ModelMapperConfig {
                 map().setOrderPrice(source.getOrderPrice());
                 map().setPaymentMethod(source.getPaymentMethod());
                 map().setOutcomeId(source.getOutcome().getId());
-                using(ctx -> ((Set<Supply>) ctx.getSource()).stream()
-                        .map(Supply::getId)
-                        .collect(Collectors.toSet()))
-                        .map(source.getSupplies(), destination.getSuppliesId());
                 using(ctx -> ((Set<SupplyInventory>) ctx.getSource()).stream()
                         .map(SupplyInventory::getId)
                         .collect(Collectors.toSet()))
@@ -286,6 +264,16 @@ public class ModelMapperConfig {
                 map().setYarnGrams(source.getYarnGrams());
                 map().setSupplyBrand(source.getSupplyBrand());
                 map().setOutcomeOrderId(source.getOutcomeOrder().getId());
+            }
+        });
+
+        modelMapper.addMappings(new PropertyMap<FAQ, FAQDTO>() {
+            @Override
+            protected void configure() {
+                map().setId(source.getId());
+                map().setQuestion(source.getQuestion());
+                map().setAnswer(source.getAnswer());
+                map().setFaqCategory(source.getFaqCategory());
             }
         });
 

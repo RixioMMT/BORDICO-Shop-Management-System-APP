@@ -22,6 +22,8 @@ public class SupplyInventory {
     private String supplyName;
     @Column(name = "supply_price")
     private BigDecimal supplyPrice;
+    @Column(name = "supply_quantity", nullable = false)
+    private Integer supplyQuantity;
     @Column(name = "supply_is_yarn", nullable = false)
     private Boolean supplyIsYarn;
     @Column(name = "yarn_grams")
