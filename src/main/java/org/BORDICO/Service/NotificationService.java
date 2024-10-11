@@ -16,12 +16,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
     private final NotificationRepository notificationRepository;
+    private final LambdaService lambdaService;
     private final ModelMapper modelMapper;
     private final ModelMapperUtil modelMapperUtil;
     private final UserRepository userRepository;
@@ -63,5 +66,19 @@ public class NotificationService {
         notification.setUser(user);
         notification = notificationRepository.save(notification);
         return modelMapper.map(notification, NotificationDTO.class);
+    }
+    public User createUserNotification(User user) {
+        Set<Notification> notifications = new HashSet<>();
+        Notification notification = Notification.builder()
+                .notificationName("User Created")
+                .notificationDescription("User " + user.getFirstName() + " has been created.")
+                .user(user)
+                .build();
+        notification = notificationRepository.save(notification);
+        notifications.add(notification);
+        user.setNotifications(notifications);
+        user = userRepository.save(user);
+        //lambdaService.invokeUserCreatedNotification(notification);
+        return user;
     }
 }

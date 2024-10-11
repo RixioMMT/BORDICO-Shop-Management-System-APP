@@ -28,12 +28,18 @@ public class ModelMapperConfig {
                 map().setFirstName(source.getFirstName());
                 map().setLastName(source.getLastName());
                 map().setProfileImageUrl(source.getProfileImageUrl());
-                map().setCreatedAt(source.getCreatedAt());
-                map().setUpdatedAt(source.getUpdatedAt());
                 using(ctx -> ((Set<Role>) ctx.getSource()).stream()
-                        .map(role -> role.getRolePosition().name())
+                        .map(Role::getRolePosition)
                         .collect(Collectors.toSet()))
-                        .map(source.getRoles(), destination.getRoleNames());
+                        .map(source.getRoles(), destination.getRolePositions());
+                using(ctx -> ((Set<Review>) ctx.getSource()).stream()
+                        .map(Review::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getReviews(), destination.getReviewsId());
+                using(ctx -> ((Set<Cart>) ctx.getSource()).stream()
+                        .map(Cart::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getCarts(), destination.getCartsId());
             }
         });
 
