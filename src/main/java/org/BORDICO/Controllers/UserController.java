@@ -3,7 +3,6 @@ package org.BORDICO.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.UserDTO;
-import org.BORDICO.Model.Entity.User;
 import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Inputs.UserInput;
 import org.BORDICO.Model.Pagination.PageOutput;
@@ -20,28 +19,40 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    @PostMapping
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<UserDTO> addUser(@RequestBody UserInput userInput) throws CustomException {
+        UserDTO newUser = userService.createUser(userInput);
+        return ResponseEntity.ok(newUser);
+    }
     @GetMapping
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<PageOutput<UserDTO>> getAllUsers(PageInput pageInput) {
         PageOutput<UserDTO> usersPage = userService.getAllUsers(pageInput);
         return ResponseEntity.ok(usersPage);
     }
-    @PostMapping
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('CLIENT')")
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserInput userInput) throws CustomException {
-        UserDTO newUser = userService.addUser(userInput);
-        return ResponseEntity.ok(newUser);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) throws CustomException {
+        UserDTO userDTO = userService.getUserById(id);
+        return ResponseEntity.ok(userDTO);
+    }
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserInput userInput) throws CustomException {
+        UserDTO updatedUser = userService.updateUser(id, userInput);
+        return ResponseEntity.ok(updatedUser);
+    }
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('CLIENT')")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) throws CustomException {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User with ID " + id + " was deleted successfully");
     }
     @PutMapping("/{userId}/profile-image")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<String> uploadUserImage(@PathVariable Long userId, @RequestParam("file") MultipartFile profileImage) throws IOException, CustomException {
         String imageUrl = userService.uploadUserImage(userId, profileImage);
         return ResponseEntity.ok(imageUrl);
-    }
-    @PostMapping("/add-user-notification")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<User> addUserWithNotification(@RequestBody UserInput userInput) throws CustomException {
-        User newUser = userService.addUserWithNotification(userInput);
-        return ResponseEntity.ok(newUser);
     }
 }
