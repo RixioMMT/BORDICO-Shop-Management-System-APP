@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.MaterialDTO;
 import org.BORDICO.Model.Entity.Material;
+import org.BORDICO.Model.Entity.Pattern;
 import org.BORDICO.Model.Inputs.MaterialInput;
 import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Pagination.PageOutput;
@@ -14,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,6 +63,8 @@ public class MaterialService {
         } else {
             material.setYarnGrams(null);
         }
+        Set<Pattern> patterns = new HashSet<>();
+        material.setPatterns(patterns);
         material = materialRepository.save(material);
         return modelMapper.map(material, MaterialDTO.class);
     }

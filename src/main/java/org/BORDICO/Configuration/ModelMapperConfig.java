@@ -45,11 +45,16 @@ public class ModelMapperConfig {
 
         modelMapper.addMappings(new PropertyMap<Material, MaterialDTO>() {
             @Override
+            @SuppressWarnings("unchecked")
             protected void configure() {
                 map().setId(source.getId());
                 map().setSupplyName(source.getSupplyName());
                 map().setSupplyIsYarn(source.getSupplyIsYarn());
                 map().setYarnGrams(source.getYarnGrams());
+                using(ctx -> ((Set<Pattern>) ctx.getSource()).stream()
+                        .map(Pattern::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getPatterns(), destination.getPatternsId());
             }
         });
 

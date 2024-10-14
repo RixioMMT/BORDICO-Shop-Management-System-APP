@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,8 +55,10 @@ public class PatternService {
     }
     private PatternDTO getPatternFromInput(PatternInput patternInput, Pattern pattern) {
         pattern.setPatternName(patternInput.getPatternName());
-        pattern.setPatternImageUrl(patternInput.getPatternImageUrl());
-        pattern.setPatternPdfUrl(patternInput.getPatternPdfUrl());
+        pattern.setPatternImageUrl(null);
+        pattern.setPatternPdfUrl(null);
+        pattern.setProducts(new HashSet<>());
+        pattern.setMaterials(new HashSet<>());
         pattern = patternRepository.save(pattern);
         return modelMapper.map(pattern, PatternDTO.class);
     }
