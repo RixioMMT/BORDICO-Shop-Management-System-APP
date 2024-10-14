@@ -66,6 +66,7 @@ public class CartService {
         cart.setCartQuantity(cartInput.getCartQuantity());
         cart.setCartStatus(cartInput.getCartStatus());
         cart.setUser(user);
+        cart.setCartItems(new HashSet<>());
         cart = cartRepository.save(cart);
         return modelMapper.map(cart, CartDTO.class);
     }
@@ -73,6 +74,7 @@ public class CartService {
         Set<Cart> carts = new HashSet<>();
         Cart cart = Cart.builder()
                 .user(user)
+                .cartItems(new HashSet<>())
                 .build();
         cart = cartRepository.save(cart);
         carts.add(cart);

@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
     @PostMapping
     @PreAuthorize("hasAuthority('CLIENT')")
-    public ResponseEntity<UserDTO> addUser(@RequestBody UserInput userInput) throws CustomException {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserInput userInput) throws CustomException {
         UserDTO newUser = userService.createUser(userInput);
         return ResponseEntity.ok(newUser);
     }

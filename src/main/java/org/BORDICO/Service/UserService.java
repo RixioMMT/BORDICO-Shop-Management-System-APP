@@ -2,6 +2,7 @@ package org.BORDICO.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Model.DTO.UserDTO;
+import org.BORDICO.Model.Entity.Review;
 import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Pagination.PageOutput;
 import org.BORDICO.Util.ModelMapperUtil;
@@ -101,12 +102,14 @@ public class UserService {
             }
             roles.add(role);
         }
+        Set<Review> reviews = new HashSet<>();
         user.setEmail(userInput.getEmail());
         user.setPhone(phoneInput);
         user.setPassword(passwordEncoder.encode(userInput.getPassword()));
         user.setFirstName(userInput.getFirstName());
         user.setLastName(userInput.getLastName());
         user.setRoles(roles);
+        user.setReviews(reviews);
         return userRepository.save(user);
     }
 }

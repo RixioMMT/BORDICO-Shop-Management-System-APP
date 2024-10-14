@@ -52,5 +52,8 @@ public class Cart {
         if (cartStatus == null) {
             cartStatus = CartStatus.ACTIVE;
         }
+        if (cartQuantity == null) {
+            cartQuantity = 0;
+        }
     }
 }
