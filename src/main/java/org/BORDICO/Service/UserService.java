@@ -38,6 +38,7 @@ public class UserService {
     private final S3Service s3Service;
     public UserDTO createUser(UserInput userInput) throws CustomException {
         User user = new User();
+        user.setReviews(new HashSet<>());
         user = getUserFromInput(userInput, user);
         user = cartService.createCartForUser(user);
         user = notificationService.createUserNotification(user);
@@ -102,14 +103,12 @@ public class UserService {
             }
             roles.add(role);
         }
-        Set<Review> reviews = new HashSet<>();
         user.setEmail(userInput.getEmail());
         user.setPhone(phoneInput);
         user.setPassword(passwordEncoder.encode(userInput.getPassword()));
         user.setFirstName(userInput.getFirstName());
         user.setLastName(userInput.getLastName());
         user.setRoles(roles);
-        user.setReviews(reviews);
         return userRepository.save(user);
     }
 }

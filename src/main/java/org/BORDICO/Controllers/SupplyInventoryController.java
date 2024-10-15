@@ -12,7 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/supply-inventories")
+@RequestMapping("/api/supplies-inventory")
 @RequiredArgsConstructor
 public class SupplyInventoryController {
     private final SupplyInventoryService supplyInventoryService;

@@ -1,7 +1,6 @@
 package org.BORDICO.Model.DTO;
 
 import lombok.Data;
-import org.BORDICO.Model.Entity.IncomeOrder;
 
 import java.time.LocalDateTime;
 
@@ -13,5 +12,6 @@ public class ProductInventoryDTO {
     private Boolean isSold;
     private LocalDateTime manufacturedDate;
     private LocalDateTime soldAt;
+    private Long productId;
     private Long incomeOrderId;
 }

@@ -37,6 +37,9 @@ public class ProductInventory {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "income_order_id")
     private IncomeOrder incomeOrder;
 }

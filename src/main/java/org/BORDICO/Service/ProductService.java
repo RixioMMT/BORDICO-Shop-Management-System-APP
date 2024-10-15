@@ -14,17 +14,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
     private final ModelMapperUtil modelMapperUtil;
     public ProductDTO createProduct(ProductInput productInput) throws CustomException {
         Product product = new Product();
+        product.setCategories(new HashSet<>());
+        product.setProductsInventory(new HashSet<>());
+        product.setReviews(new HashSet<>());
         return getProductFromInput(productInput, product);
     }
     public PageOutput<ProductDTO> getAllProducts(PageInput pageInput) {

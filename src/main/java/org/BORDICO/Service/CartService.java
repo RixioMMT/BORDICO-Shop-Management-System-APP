@@ -3,12 +3,10 @@ package org.BORDICO.Service;
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.CartDTO;
-import org.BORDICO.Model.DTO.UserDTO;
 import org.BORDICO.Model.Entity.Cart;
 import org.BORDICO.Model.Inputs.CartInput;
 import org.BORDICO.Model.Entity.User;
 import org.BORDICO.Model.Inputs.PageInput;
-import org.BORDICO.Model.Inputs.UserInput;
 import org.BORDICO.Model.Pagination.PageOutput;
 import org.BORDICO.Repository.CartRepository;
 import org.BORDICO.Repository.UserRepository;
@@ -31,6 +29,7 @@ public class CartService {
     private final UserRepository userRepository;
     public CartDTO createCart(CartInput cartInput) throws CustomException {
         Cart cart = new Cart();
+        cart.setCartItems(new HashSet<>());
         return getCartFromInput(cartInput, cart);
     }
     public PageOutput<CartDTO> getAllCarts(PageInput pageInput) {
@@ -66,7 +65,6 @@ public class CartService {
         cart.setCartQuantity(cartInput.getCartQuantity());
         cart.setCartStatus(cartInput.getCartStatus());
         cart.setUser(user);
-        cart.setCartItems(new HashSet<>());
         cart = cartRepository.save(cart);
         return modelMapper.map(cart, CartDTO.class);
     }

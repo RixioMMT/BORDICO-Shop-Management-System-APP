@@ -25,6 +25,10 @@ public class PatternService {
     private final ModelMapperUtil modelMapperUtil;
     public PatternDTO createPattern(PatternInput patternInput) {
         Pattern pattern = new Pattern();
+        pattern.setPatternImageUrl(null);
+        pattern.setPatternPdfUrl(null);
+        pattern.setProducts(new HashSet<>());
+        pattern.setMaterials(new HashSet<>());
         return getPatternFromInput(patternInput, pattern);
     }
     public PageOutput<PatternDTO> getAllPatterns(PageInput pageInput) {
@@ -55,10 +59,6 @@ public class PatternService {
     }
     private PatternDTO getPatternFromInput(PatternInput patternInput, Pattern pattern) {
         pattern.setPatternName(patternInput.getPatternName());
-        pattern.setPatternImageUrl(null);
-        pattern.setPatternPdfUrl(null);
-        pattern.setProducts(new HashSet<>());
-        pattern.setMaterials(new HashSet<>());
         pattern = patternRepository.save(pattern);
         return modelMapper.map(pattern, PatternDTO.class);
     }

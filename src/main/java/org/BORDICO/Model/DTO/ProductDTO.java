@@ -14,7 +14,12 @@ public class ProductDTO {
     private Double productHeight;
     private Double productLength;
     private Double productWeight;
-    private Set<String> categoryNames;
-    private String patternName;
-    private Set<String> reviews;
+    private Integer stockQuantity;
+    private BigDecimal currentInvestment;
+    private Integer unitsSold;
+    private BigDecimal overallEarnings;
+    private Set<Long> categoriesId;
+    private Long patternId;
+    private Set<Long> productsInventoryId;
+    private Set<Long> reviewsId;
 }

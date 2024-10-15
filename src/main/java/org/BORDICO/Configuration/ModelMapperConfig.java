@@ -88,15 +88,23 @@ public class ModelMapperConfig {
                 map().setProductHeight(source.getProductHeight());
                 map().setProductLength(source.getProductLength());
                 map().setProductWeight(source.getProductWeight());
-                map(source.getPattern().getPatternName(), destination.getPatternName());
+                map().setStockQuantity(source.getStockQuantity());
+                map().setCurrentInvestment(source.getCurrentInvestment());
+                map().setUnitsSold(source.getUnitsSold());
+                map().setOverallEarnings(source.getOverallEarnings());
+                map(source.getPattern().getId(), destination.getPatternId());
                 using(ctx -> ((Set<Category>) ctx.getSource()).stream()
-                        .map(Category::getCategoryName)
+                        .map(Category::getId)
                         .collect(Collectors.toSet()))
-                        .map(source.getCategories(), destination.getCategoryNames());
+                        .map(source.getCategories(), destination.getCategoriesId());
+                using(ctx -> ((Set<ProductInventory>) ctx.getSource()).stream()
+                        .map(ProductInventory::getId)
+                        .collect(Collectors.toSet()))
+                        .map(source.getProductsInventory(), destination.getProductsInventoryId());
                 using(ctx -> ((Set<Review>) ctx.getSource()).stream()
-                        .map(Review::getTitle)
+                        .map(Review::getId)
                         .collect(Collectors.toSet()))
-                        .map(source.getReviews(), destination.getReviews());
+                        .map(source.getReviews(), destination.getReviewsId());
             }
         });
 
@@ -109,6 +117,7 @@ public class ModelMapperConfig {
                 map().setIsSold(source.getIsSold());
                 map().setManufacturedDate(source.getManufacturedDate());
                 map().setSoldAt(source.getSoldAt());
+                map().setProductId(source.getProduct().getId());
                 map().setIncomeOrderId(source.getIncomeOrder().getId());
             }
         });

@@ -3,6 +3,7 @@ package org.BORDICO.Service;
 import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.ProductInventoryDTO;
+import org.BORDICO.Model.Entity.Product;
 import org.BORDICO.Model.Entity.ProductInventory;
 import org.BORDICO.Model.Inputs.ProductInventoryInput;
 import org.BORDICO.Model.Inputs.PageInput;
@@ -26,6 +27,7 @@ public class ProductInventoryService {
     private final ProductRepository productRepository;
     public ProductInventoryDTO createInventory(ProductInventoryInput productInventoryInput) throws CustomException {
         ProductInventory productInventory = new ProductInventory();
+
         return getInventoryFromInput(productInventoryInput, productInventory);
     }
     public PageOutput<ProductInventoryDTO> getAllInventories(PageInput pageInput) {
@@ -55,10 +57,9 @@ public class ProductInventoryService {
         productInventoryRepository.delete(productInventory);
     }
     private ProductInventoryDTO getInventoryFromInput(ProductInventoryInput productInventoryInput, ProductInventory productInventory) throws CustomException {
-        if (!productRepository.existsByProductName(productInventoryInput.getItemName())) {
-            throw new CustomException("Product must be registered before adding item");
-        }
-        productInventory.setItemName(productInventoryInput.getItemName());
+        Product product = productRepository.findById(productInventoryInput.getProductId())
+                .orElseThrow(() -> new CustomException("Product with ID " + productInventoryInput.getProductId() + " must be registered before adding item"));
+        productInventory.setItemName(product.getProductName());
         productInventory.setItemColorType(productInventoryInput.getItemColorType());
         productInventory.setIsSold(productInventoryInput.getIsSold());
         productInventory.setManufacturedDate(productInventoryInput.getManufacturedDate());
@@ -67,6 +68,7 @@ public class ProductInventoryService {
         } else {
             productInventory.setSoldAt(null);
         }
+        productInventory.setProduct(product);
         productInventory = productInventoryRepository.save(productInventory);
         return modelMapper.map(productInventory, ProductInventoryDTO.class);
     }

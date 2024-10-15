@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 @Service
 @Builder
 @RequiredArgsConstructor
@@ -37,6 +39,7 @@ public class AuthenticationService {
     }
     public User signUp(UserInput userInput) throws CustomException {
         User user = new User();
+        user.setReviews(new HashSet<>());
         user = userService.getUserFromInput(userInput, user);
         user = cartService.createCartForUser(user);
         return notificationService.createUserNotification(user);

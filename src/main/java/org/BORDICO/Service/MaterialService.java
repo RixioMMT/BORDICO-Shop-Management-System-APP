@@ -27,6 +27,8 @@ public class MaterialService {
     private final ModelMapperUtil modelMapperUtil;
     public MaterialDTO createMaterial(MaterialInput materialInput) {
         Material material = new Material();
+        Set<Pattern> patterns = new HashSet<>();
+        material.setPatterns(patterns);
         return getMaterialFromInput(materialInput, material);
     }
     public PageOutput<MaterialDTO> getAllMaterials(PageInput pageInput) {
@@ -63,8 +65,6 @@ public class MaterialService {
         } else {
             material.setYarnGrams(null);
         }
-        Set<Pattern> patterns = new HashSet<>();
-        material.setPatterns(patterns);
         material = materialRepository.save(material);
         return modelMapper.map(material, MaterialDTO.class);
     }
