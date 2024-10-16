@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.BORDICO.Exceptions.CustomException;
 import org.BORDICO.Model.DTO.CategoryDTO;
 import org.BORDICO.Model.Entity.Category;
+import org.BORDICO.Model.Entity.Product;
 import org.BORDICO.Model.Inputs.CategoryInput;
 import org.BORDICO.Model.Inputs.PageInput;
 import org.BORDICO.Model.Pagination.PageOutput;
@@ -14,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +27,8 @@ public class CategoryService {
     private final ModelMapperUtil modelMapperUtil;
     public CategoryDTO createCategory(CategoryInput categoryInput) {
         Category category = new Category();
+        Set<Product> products = new HashSet<>();
+        category.setProducts(products);
         return getCategoryFromInput(categoryInput, category);
     }
     public PageOutput<CategoryDTO> getAllCategories(PageInput pageInput) {
